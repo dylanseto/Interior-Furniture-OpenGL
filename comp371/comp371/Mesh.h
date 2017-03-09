@@ -56,6 +56,4 @@ public:
 	void handleMotion(int key);
 	bool hasRendered();
 	virtual void render() = 0;
-	virtual void outputFile() = 0;
-	virtual void reset() = 0;
 };
