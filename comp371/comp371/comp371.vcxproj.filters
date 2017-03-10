@@ -45,6 +45,9 @@
     <ClCompile Include="Chair.cpp">
       <Filter>Source Files\meshes</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Source Files\meshes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="MeshCreator.h">
       <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh_type.h">
+      <Filter>Header Files\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

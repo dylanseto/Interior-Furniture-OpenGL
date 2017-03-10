@@ -5,6 +5,7 @@
 #include "..\glfw\glfw3.h"	// include GLFW helper library
 #include <glm.hpp>
 #include "gtc/type_ptr.hpp"
+#include "mesh_type.h"
 
 using namespace std;
 
@@ -19,6 +20,8 @@ protected:
 	glm::mat4 projectionMatrix;
 
 	void updateBuffer();
+	Mesh_Type type;
+
 private:
 	GLuint VAO, VBO, EBO;
 	bool hasPoints;

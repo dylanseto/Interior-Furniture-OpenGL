@@ -76,6 +76,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCreator.cpp" />
+    <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chair.h" />
@@ -83,6 +84,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCreator.h" />
+    <ClInclude Include="mesh_type.h" />
     <ClInclude Include="Terrain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

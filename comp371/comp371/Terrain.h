@@ -4,5 +4,7 @@
 
 class Terrain : Mesh
 {
+public:
+	Terrain();
 	void render();
 };
