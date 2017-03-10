@@ -8,19 +8,9 @@
 
 using namespace std;
 
-enum Mesh_Type
-{
-	ROTATIONAL,
-	TRANSLATIONAL
-};
-
 class Mesh
 {
 protected:
-	bool rendered;
-
-	vector<GLfloat> profileCurve;
-	vector<GLfloat> windowProfileCurve;
 	vector<GLuint> indices;
 	vector<GLfloat> vertices;
 
@@ -30,7 +20,6 @@ protected:
 
 	void updateBuffer();
 private:
-	Mesh_Type type;
 	GLuint VAO, VBO, EBO;
 	bool hasPoints;
 
@@ -42,10 +31,8 @@ private:
 	const GLfloat ROTATION_AMT = (glm::pi<GLfloat>() / 40.0f);
 public:
 	Mesh();
-	Mesh(Mesh_Type type);
+	Mesh(vector<GLfloat> vertices, vector<unsigned int> indices);
 	~Mesh();
-	void setType(Mesh_Type);
-	Mesh_Type getType();
 
 	vector<GLfloat> getVertices() { return this->vertices; }
 

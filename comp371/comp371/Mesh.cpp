@@ -20,14 +20,13 @@ Mesh::Mesh()
 	modelMatrix = glm::rotate(modelMatrix, 0.0f, glm::vec3(1.0f, 1.0f, 1.0f));
 
 	updateMatrix();
-	this->rendered = false;
 }
 
-Mesh::Mesh(Mesh_Type type)
+Mesh::Mesh(vector<GLfloat> vertices, vector<unsigned int> indices)
 {
+	this->vertices = vertices;
+	this->indices = indices;
 	updateBuffer();
-	this->rendered = false;
-	setType(type);
 }
 
 Mesh::~Mesh()
@@ -53,35 +52,9 @@ void Mesh::updateBuffer()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 }
-void Mesh::setType(Mesh_Type type)
-{
-	this->type = type;
-	this->hasPoints = false;
-	this->rendered = false;
-}
-
-Mesh_Type Mesh::getType()
-{
-	return this->type;
-}
 
 void Mesh::addProfilePoint(GLfloat x, GLfloat y)
 {
-	cout << "p" << x << endl;
-	int width = Game::getInstance()->getWidth() / 2;
-	int height = Game::getInstance()->getHeight() / 2;
-	GLfloat realX = (x - width) / (width);
-	GLfloat realY = -1 * (y - height) / (height)-0.05f;
-
-	this->profileCurve.push_back(realX);
-	this->profileCurve.push_back(realY); // actually z axis.
-	this->profileCurve.push_back(0);
-
-	windowProfileCurve.push_back(x);
-	windowProfileCurve.push_back(y);
-	windowProfileCurve.push_back(0);
-	this->hasPoints = true;
-
 	updateBuffer();
 }
 
@@ -223,9 +196,4 @@ void Mesh::handleMotion(int key)
 		//zAxis = glm::rotateX(zAxis, -ROTATION_AMT);
 		//zAxis = glm::normalize(zAxis);
 	}
-}
-
-bool Mesh::hasRendered()
-{
-	return this->rendered;
 }

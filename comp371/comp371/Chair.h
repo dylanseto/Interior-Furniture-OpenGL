@@ -2,7 +2,9 @@
 
 #include "Mesh.h"
 
-class Chair : Mesh
+class Chair : public Mesh
 {
+public:
+	Chair(vector<GLfloat> vertices, vector<unsigned int> indices);
 	void render();
 };
