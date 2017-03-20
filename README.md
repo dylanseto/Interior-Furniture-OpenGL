@@ -13,3 +13,5 @@ items, like a bridge, for textures, and so on, as needed in order to create the 
 that you credit the source properly. You should have simple interaction mechanisms to navigate through the
 virtual world and view it from different angles. During navigation, the user must not be allowed to pass through
 objects.
+ 
+3D models courtesy of http://tf3dm.com and are all freely available.

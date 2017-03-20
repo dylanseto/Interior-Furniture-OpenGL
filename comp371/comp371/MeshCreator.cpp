@@ -33,7 +33,7 @@ bool MeshCreator::loadOBJ(string path, std::vector<GLfloat> & out_vertices, std:
 		if (res == EOF)
 			break; // EOF = End Of File. Quit the loop.
 
-		if (strcmp(lineHeader, File_Header::VERTICES.c_str()) == 0){
+		if (strcmp(lineHeader, "v") == 0){
 			glm::vec3 vertex;
 
 			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
@@ -43,21 +43,39 @@ bool MeshCreator::loadOBJ(string path, std::vector<GLfloat> & out_vertices, std:
 			out_vertices.push_back(vertex.z);
 
 		}
-		else if (strcmp(lineHeader, File_Header::INDICES.c_str()) == 0){
+		else if (strcmp(lineHeader, "f") == 0){
 
-			GLuint idx1, idx2, idx3; //3 indices per line
+			GLuint idx1, idx2, idx3, idx4; //3 indices per line
 
-			int matches = fscanf(file, "%i %i %i \n", &idx1, &idx2, &idx3);
+			int matches = fscanf(file, "%i %i %i %i \n", &idx1, &idx2, &idx3, &idx4);
 
 			if (matches != 3){
-				cout << idx1 << endl;
-				printf("File can't be read by our simple parser :-( Try exporting with other options\n");
-				return false;
+				if (matches == 4)
+				{
+					//Then this is a quad.
+					out_indices.push_back(idx1 - 1); //why -1? hint: look at the first index in teddy.obj
+					out_indices.push_back(idx2 - 1);
+					//out_indices.push_back(idx3 - 1);
+					out_indices.push_back(idx4 - 1);
+
+					out_indices.push_back(idx2 - 1); //why -1? hint: look at the first index in teddy.obj
+					out_indices.push_back(idx3 - 1);
+					out_indices.push_back(idx4 - 1);
+				}
+				else
+				{
+					printf("File can't be read by our simple parser :-( Try exporting with other options\n");
+					return false;
+				}
+			}
+			else
+			{
+				out_indices.push_back(idx1 - 1); //why -1? hint: look at the first index in teddy.obj
+				out_indices.push_back(idx2 - 1);
+				out_indices.push_back(idx3 - 1);
 			}
 
-			out_indices.push_back(idx1 - 1); //why -1? hint: look at the first index in teddy.obj
-			out_indices.push_back(idx2 - 1);
-			out_indices.push_back(idx3 - 1);
+
 
 		}
 		else{
