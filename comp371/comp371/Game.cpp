@@ -8,6 +8,8 @@
 
 using namespace std;
 
+Chair* chair;
+
 Game::Game()
 {
 	this->width = 800;
@@ -55,11 +57,12 @@ void Game::init()
 
 	//this->mesh = new Mesh();
 	//this->mesh->loadShaders();
+	chair = new Chair();
+	chair->loadShaders();
 }
 
 void Game::mainLoop()
 {
-	Chair* chair = new Chair();
 	while (!glfwWindowShouldClose(this->window))
 	{
 		glfwPollEvents();
@@ -75,7 +78,6 @@ void Game::mainLoop()
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
 
-		//chair->loadShaders();
 		chair->updateMatrix();
 		chair->draw();
 

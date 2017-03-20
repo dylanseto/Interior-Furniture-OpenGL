@@ -12,13 +12,12 @@ using namespace std;
 
 Mesh::Mesh()
 {
-	loadShaders();
 	updateBuffer();
 
-	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-	viewMatrix = glm::lookAt(cameraPos, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	projectionMatrix = glm::ortho(0.0f, (float)Game::getInstance()->getWidth(), (float)Game::getInstance()->getHeight(), 0.0f, 0.1f, 100.0f);
-	modelMatrix = glm::rotate(modelMatrix, 0.0f, glm::vec3(1.0f, 1.0f, 1.0f));
+	//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+	//viewMatrix = glm::lookAt(cameraPos, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+	//projectionMatrix = glm::perspective(45.0f, (GLfloat)800 / (GLfloat)height, 0.0f, 1000.0f);
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25, 0.25, 0.25));
 
 	updateMatrix();
 }
@@ -45,6 +44,8 @@ void Mesh::updateBuffer()
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), indices.data(), GL_STATIC_DRAW);
 
@@ -56,13 +57,13 @@ void Mesh::updateBuffer()
 
 void Mesh::updateMatrix()
 {
-	viewMatrixLoc = glGetUniformLocation(shaderProgram, "view_matrix");
-	projectiontMatrixLoc = glGetUniformLocation(shaderProgram, "projection_matrix");
+	//viewMatrixLoc = glGetUniformLocation(shaderProgram, "view_matrix");
+	//projectiontMatrixLoc = glGetUniformLocation(shaderProgram, "projection_matrix");
 	modelMatrixLoc = glGetUniformLocation(shaderProgram, "model_matrix");
 
-	glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	//glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	//glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 }
 
 void Mesh::draw()

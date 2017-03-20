@@ -11,11 +11,12 @@ Chair::Chair() : Mesh()
 	if (MeshCreator::loadOBJ("chair.obj", this->vertices, this->indices))
 	{
 		cout << "[LOAD] Loaded Chair." << endl;
+		this->updateBuffer();
 	}
 }
 
 void Chair::render()
 {
-	//UPdate position
+	//Update position
 	this->draw();
 }
