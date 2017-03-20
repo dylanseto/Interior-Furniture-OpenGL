@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-Chair::Chair()
+Chair::Chair() : Mesh()
 {
 	this->type = Mesh_Type::CHAIR;
 

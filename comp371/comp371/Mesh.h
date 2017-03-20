@@ -39,7 +39,6 @@ public:
 
 	vector<GLfloat> getVertices() { return this->vertices; }
 
-	void addProfilePoint(GLfloat x, GLfloat y);
 	void draw();
 	void updateMatrix();
 	void loadShaders();

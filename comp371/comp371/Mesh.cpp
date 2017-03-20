@@ -12,6 +12,7 @@ using namespace std;
 
 Mesh::Mesh()
 {
+	loadShaders();
 	updateBuffer();
 
 	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -51,11 +52,6 @@ void Mesh::updateBuffer()
 	glEnableVertexAttribArray(0);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-}
-
-void Mesh::addProfilePoint(GLfloat x, GLfloat y)
-{
-	updateBuffer();
 }
 
 void Mesh::updateMatrix()
