@@ -73,6 +73,8 @@ void Mesh::draw()
 {
 	glBindVertexArray(VAO);
 
+	//glUseProgram(shaderProgram);
+
 	if (!indices.empty())
 	{
 		//glDrawArrays(GL_POINTS, 0, vertices.size()/3);

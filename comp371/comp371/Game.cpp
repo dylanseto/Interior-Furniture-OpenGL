@@ -4,6 +4,7 @@
 
 #include "Mesh.h"
 #include "EventHandler.h"
+#include "Chair.h"
 
 using namespace std;
 
@@ -15,15 +16,6 @@ Game::Game()
 
 void Game::init()
 {
-	cout << "Translational(T) Or Rotational(R)?" << endl;
-	char meshtype;
-
-	do
-	{
-		cin >> meshtype;
-
-	} while (meshtype != 'R' && meshtype != 'T');
-
 	std::cout << "Starting GLFW context, OpenGL 3.3" << std::endl;
 	// Init GLFW
 	glfwInit();
@@ -68,6 +60,7 @@ void Game::init()
 
 void Game::mainLoop()
 {
+	Chair* chair = new Chair();
 	while (!glfwWindowShouldClose(this->window))
 	{
 		glfwPollEvents();
@@ -83,8 +76,8 @@ void Game::mainLoop()
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
 
-		mesh->updateMatrix();
-		mesh->draw();
+		chair->updateMatrix();
+		chair->draw();
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);

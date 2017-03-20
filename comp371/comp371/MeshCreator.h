@@ -1,16 +1,17 @@
 #pragma once
 
 #include "Mesh.h"
+#include <string>
+using namespace std;
 
 namespace MeshCreator
 {
-	Mesh* createTerrain();
-	Mesh* createChair();
+	bool loadOBJ(string filename, vector<GLfloat> &vertices, vector<GLuint> &indices);
 	//vector<GLfloat> load3DSFile(string filename);
 }
 
 namespace File_Header
 {
-	const unsigned short VERTICES = 0x4110;
-	const unsigned short POLYGON = 0x4120;
+	const string VERTICES = "v";
+	const string INDICES = "f";
 }

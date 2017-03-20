@@ -85,7 +85,12 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCreator.h" />
     <ClInclude Include="mesh_type.h" />
+    <ClInclude Include="pos.h" />
     <ClInclude Include="Terrain.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fragment.shader" />
+    <None Include="vertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
