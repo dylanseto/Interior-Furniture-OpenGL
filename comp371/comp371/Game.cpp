@@ -28,7 +28,7 @@ void Game::init()
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 
 
-	this->window = glfwCreateWindow(width, height, "Assignement 2", nullptr, nullptr);
+	this->window = glfwCreateWindow(width, height, "COMP371 Project", nullptr, nullptr);
 
 	if (this->window == nullptr)
 	{
