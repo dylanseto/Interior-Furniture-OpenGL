@@ -3,5 +3,6 @@
 enum Mesh_Type
 {
 	CHAIR,
+	TOILET,
 	TERRAIN
 };

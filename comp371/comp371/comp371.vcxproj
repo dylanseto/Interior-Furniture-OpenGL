@@ -77,6 +77,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCreator.cpp" />
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="Toilet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chair.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="mesh_type.h" />
     <ClInclude Include="pos.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="Toilet.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.shader" />

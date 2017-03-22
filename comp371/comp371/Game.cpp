@@ -5,10 +5,11 @@
 #include "Mesh.h"
 #include "EventHandler.h"
 #include "Chair.h"
+#include "Toilet.h"
 
 using namespace std;
 
-Chair* chair;
+Toilet* chair;
 
 Game::Game()
 {
@@ -57,7 +58,7 @@ void Game::init()
 
 	//this->mesh = new Mesh();
 	//this->mesh->loadShaders();
-	chair = new Chair();
+	chair = new Toilet();
 	chair->loadShaders();
 }
 

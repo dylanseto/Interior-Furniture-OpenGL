@@ -48,6 +48,9 @@
     <ClCompile Include="Terrain.cpp">
       <Filter>Source Files\meshes</Filter>
     </ClCompile>
+    <ClCompile Include="Toilet.cpp">
+      <Filter>Source Files\meshes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="pos.h">
+      <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Toilet.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,9 +14,9 @@ Mesh::Mesh()
 {
 	updateBuffer();
 
-	//glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-	//viewMatrix = glm::lookAt(cameraPos, glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
-	//projectionMatrix = glm::perspective(45.0f, (GLfloat)800 / (GLfloat)height, 0.0f, 1000.0f);
+	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+	//viewMatrix = glm::lookAt(cameraPos, glm::vec3(0.0, 0.0, 3.0), glm::vec3(0.0, 1.0, 0.0));
+	//projectionMatrix = glm::perspective(0.5f, (GLfloat)Game::getInstance()->getWidth() / (GLfloat)Game::getInstance()->getWidth(), 0.0f, 3.5f);
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25, 0.25, 0.25));
 
 	updateMatrix();
@@ -57,25 +57,23 @@ void Mesh::updateBuffer()
 
 void Mesh::updateMatrix()
 {
-	//viewMatrixLoc = glGetUniformLocation(shaderProgram, "view_matrix");
-	//projectiontMatrixLoc = glGetUniformLocation(shaderProgram, "projection_matrix");
+	viewMatrixLoc = glGetUniformLocation(shaderProgram, "view_matrix");
+	projectiontMatrixLoc = glGetUniformLocation(shaderProgram, "projection_matrix");
 	modelMatrixLoc = glGetUniformLocation(shaderProgram, "model_matrix");
 
-	//glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	//glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
 }
 
 void Mesh::draw()
 {
 	glBindVertexArray(VAO);
 
-	//glUseProgram(shaderProgram);
+	glUseProgram(shaderProgram);
 
 	if (!indices.empty())
 	{
-		//glDrawArrays(GL_POINTS, 0, vertices.size()/3);
-		//glDrawArrays(GL_POINTS, 0, profileCurve.size() / 3);
 		glDrawElements(
 			GL_TRIANGLES,      // mode
 			indices.size(),    // count
