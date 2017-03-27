@@ -80,6 +80,7 @@
     <ClCompile Include="Toilet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="Chair.h" />
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Game.h" />
