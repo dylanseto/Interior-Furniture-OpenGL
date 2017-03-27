@@ -51,6 +51,9 @@
     <ClCompile Include="Toilet.cpp">
       <Filter>Source Files\meshes</Filter>
     </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

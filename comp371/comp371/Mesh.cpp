@@ -61,9 +61,8 @@ void Mesh::updateMatrix()
 	projectiontMatrixLoc = glGetUniformLocation(shaderProgram, "projection_matrix");
 	modelMatrixLoc = glGetUniformLocation(shaderProgram, "model_matrix");
 
-	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-	projectionMatrix = glm::perspective(60.0f, (GLfloat)Game::getInstance()->getWidth() / (GLfloat)Game::getInstance()->getHeight(), 0.1f, 3.5f);
-	viewMatrix = glm::lookAt(cameraPos, glm::vec3(0.0, 0.0, 3.0), glm::vec3(0.0, 1.0, 0.0));
+	projectionMatrix = Game::getInstance()->getProjection();
+	viewMatrix = Game::getInstance()->getView();
 
 	glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));

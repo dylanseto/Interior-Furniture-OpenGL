@@ -70,6 +70,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camera.cpp" />
     <ClCompile Include="Chair.cpp" />
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Game.cpp" />

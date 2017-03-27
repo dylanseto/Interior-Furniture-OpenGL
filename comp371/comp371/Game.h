@@ -1,13 +1,14 @@
 #pragma once
 
+#include <glm.hpp>
 #include "..\glew\glew.h"	// include GL Extension Wrangler
 #include "..\glfw\glfw3.h"	// include GLFW helper library
 #include "..\glm\gtc\matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 #include "..\glm\gtx\rotate_vector.hpp"
-#include "Mesh.h"
 
-#include <glm.hpp>
+#include "Mesh.h"
+#include "camera.h"
 
 
 class Game
@@ -17,6 +18,7 @@ private:
 	GLFWwindow* window;
 	Mesh* mesh; // temp.
 	GLuint width, height;
+	camera* cam;
 public:
 	Game();
 
@@ -30,6 +32,9 @@ public:
 	void init();
 	void mainLoop();
 	void updateShader();
+
+	glm::mat4 getProjection();
+	glm::mat4 getView();
 
 	static Game* getInstance();
 };

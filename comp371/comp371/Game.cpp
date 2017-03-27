@@ -15,6 +15,7 @@ Game::Game()
 {
 	this->width = 800;
 	this->height = 800;
+	this->cam = new camera();
 }
 
 void Game::init()
@@ -86,6 +87,17 @@ void Game::mainLoop()
 		glfwSwapBuffers(window);
 	}
 }
+
+glm::mat4 Game::getProjection()
+{
+	return glm::perspective(cam->getFOV(), ((float)width / (float)height), 0.1f, 3.5f);
+}
+
+glm::mat4 Game::getView()
+{
+	return glm::lookAt(cam->getPos(), glm::vec3(0.0, 0.0, 3.0), glm::vec3(0.0, 1.0, 0.0));
+}
+
 
 Game* Game::instance;
 
