@@ -9,6 +9,7 @@
 
 #include "Mesh.h"
 #include "camera.h"
+#include "terrain.h"
 
 
 class Game
@@ -19,6 +20,7 @@ private:
 	Mesh* mesh; // temp.
 	GLuint width, height;
 	camera* cam;
+	Terrain* terrain;
 public:
 	Game();
 
