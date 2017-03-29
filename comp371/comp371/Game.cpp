@@ -95,7 +95,7 @@ glm::mat4 Game::getProjection()
 
 glm::mat4 Game::getView()
 {
-	return glm::lookAt(cam->getPos(), glm::vec3(0.0, 0.0, 3.0), glm::vec3(0.0, 1.0, 0.0));
+	return glm::lookAt(cam->getPos(), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 }
 
 
