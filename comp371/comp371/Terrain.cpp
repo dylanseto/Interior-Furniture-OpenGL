@@ -7,5 +7,5 @@ Terrain::Terrain()
 
 void Terrain::render()
 {
-
+	this->draw();
 }

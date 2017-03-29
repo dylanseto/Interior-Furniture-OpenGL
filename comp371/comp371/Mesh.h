@@ -19,6 +19,7 @@ protected:
 
 	void updateBuffer();
 	Mesh_Type type;
+	GLuint shaderProgram;
 
 private:
 	GLuint VAO, VBO, EBO;
@@ -27,7 +28,6 @@ private:
 	GLuint viewMatrixLoc;
 	GLuint projectiontMatrixLoc;
 	GLuint modelMatrixLoc;
-	GLuint shaderProgram;
 
 	const GLfloat ROTATION_AMT = (glm::pi<GLfloat>() / 40.0f);
 public:

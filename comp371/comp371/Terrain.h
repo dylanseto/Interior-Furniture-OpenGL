@@ -2,7 +2,7 @@
 
 #include "Mesh.h"
 
-class Terrain : Mesh
+class Terrain : public Mesh
 {
 public:
 	Terrain();
