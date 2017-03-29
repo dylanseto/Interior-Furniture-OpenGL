@@ -14,10 +14,7 @@ Mesh::Mesh()
 {
 	updateBuffer();
 
-	glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-	viewMatrix = glm::lookAt(cameraPos, glm::vec3(0.0, 0.0, 3.0), glm::vec3(0.0, 1.0, 0.0));
-	projectionMatrix = glm::perspective(60.0f, (GLfloat)Game::getInstance()->getWidth() / (GLfloat)Game::getInstance()->getHeight(), 0.0f, 3.5f);
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.25, 0.25, 0.25));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(2, 2, 2));
 
 	updateMatrix();
 }
@@ -61,12 +58,12 @@ void Mesh::updateMatrix()
 	projectiontMatrixLoc = glGetUniformLocation(shaderProgram, "projection_matrix");
 	modelMatrixLoc = glGetUniformLocation(shaderProgram, "model_matrix");
 
-	projectionMatrix = Game::getInstance()->getProjection();
-	viewMatrix = Game::getInstance()->getView();
+	//projectionMatrix = Game::getInstance()->getProjection();
+	//viewMatrix = Game::getInstance()->getView();
 
-	glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(Game::getInstance()->getProjection()));
 	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-	glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, glm::value_ptr(Game::getInstance()->getView()));
 }
 
 void Mesh::draw()

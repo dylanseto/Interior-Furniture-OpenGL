@@ -16,8 +16,6 @@ protected:
 	vector<GLfloat> vertices;
 
 	glm::mat4 modelMatrix;
-	glm::mat4 viewMatrix;
-	glm::mat4 projectionMatrix;
 
 	void updateBuffer();
 	Mesh_Type type;
