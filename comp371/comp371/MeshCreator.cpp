@@ -3,6 +3,7 @@
 #include "gtc/type_ptr.hpp"
 #include "meshCreator.h"
 #include "Chair.h"
+#include "Terrain.h"
 
 #include <fstream>
 #include <sstream>
@@ -83,4 +84,33 @@ bool MeshCreator::loadOBJ(string path, std::vector<GLfloat> & out_vertices, std:
 
 	}
 	return true;
+}
+
+void MeshCreator::createTerrain(vector<GLfloat> &vertices, vector<GLuint> &indices)
+{
+	for (int i = 0; i < Terrain::VERTEX_COUNT; i++)
+	{
+		for (int j = 0; j < Terrain::VERTEX_COUNT; j++)
+		{
+			vertices.push_back((float)j / ((float)Terrain::VERTEX_COUNT - 1) * Terrain::SIZE);
+			vertices.push_back(0);
+			vertices.push_back((float)i / ((float)Terrain::VERTEX_COUNT - 1) * Terrain::SIZE);
+		}
+	}
+
+	for (int gz = 0; gz < Terrain::VERTEX_COUNT - 1; gz++) {
+		for (int gx = 0; gx < Terrain::VERTEX_COUNT - 1; gx++) {
+			int topLeft = (gz*Terrain::VERTEX_COUNT) + gx;
+			int topRight = topLeft + 1;
+			int bottomLeft = ((gz + 1)*Terrain::VERTEX_COUNT) + gx;
+			int bottomRight = bottomLeft + 1;
+
+			indices.push_back(topLeft);
+			indices.push_back(bottomLeft);
+			indices.push_back(topRight);
+			indices.push_back(topRight);
+			indices.push_back(bottomLeft);
+			indices.push_back(bottomRight);
+		}
+	}
 }

@@ -15,6 +15,7 @@ Mesh::Mesh()
 	updateBuffer();
 
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(2, 2, 2));
+	this->updateMatrix();
 
 	updateMatrix();
 }

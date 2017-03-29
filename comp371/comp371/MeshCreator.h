@@ -7,7 +7,8 @@ using namespace std;
 namespace MeshCreator
 {
 	bool loadOBJ(string filename, vector<GLfloat> &vertices, vector<GLuint> &indices);
-	//vector<GLfloat> load3DSFile(string filename);
+
+	void createTerrain(vector<GLfloat> &vertices, vector<GLuint> &indices);
 }
 
 namespace File_Header

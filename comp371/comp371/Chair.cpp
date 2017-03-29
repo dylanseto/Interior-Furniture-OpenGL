@@ -1,5 +1,9 @@
 #include "Chair.h"
 #include "MeshCreator.h"
+#include "..\glm\gtc\matrix_transform.hpp"
+#include "..\glm\gtx\rotate_vector.hpp"
+#include "gtc/type_ptr.hpp"
+
 
 #include <iostream>
 using namespace std;
@@ -12,6 +16,8 @@ Chair::Chair() : Mesh()
 	{
 		cout << "[LOAD] Loaded Chair." << endl;
 		this->updateBuffer();
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(2, 2, 2));
+		this->updateMatrix();
 	}
 }
 

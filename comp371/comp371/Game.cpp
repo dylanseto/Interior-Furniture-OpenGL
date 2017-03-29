@@ -61,6 +61,9 @@ void Game::init()
 	//this->mesh->loadShaders();
 	chair = new Toilet();
 	chair->loadShaders();
+
+	terrain = new Terrain();
+	terrain->loadShaders();
 }
 
 void Game::mainLoop()
@@ -82,6 +85,9 @@ void Game::mainLoop()
 
 		chair->updateMatrix();
 		chair->draw();
+
+		terrain->updateMatrix();
+		terrain->draw();
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
