@@ -12,12 +12,9 @@ using namespace std;
 
 Mesh::Mesh()
 {
-	updateBuffer();
-
+	this->updateBuffer();
 	modelMatrix = glm::scale(modelMatrix, glm::vec3(2, 2, 2));
 	this->updateMatrix();
-
-	updateMatrix();
 }
 
 Mesh::Mesh(vector<GLfloat> vertices, vector<unsigned int> indices)
