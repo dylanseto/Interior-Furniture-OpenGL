@@ -88,7 +88,7 @@ void Mesh::draw()
 void Mesh::loadShaders()
 {
 	// Read the Vertex Shader code from the file
-	string vertex_shader_path = "vertex.shader";
+	string vertex_shader_path = "shaders/obj_vertex.shader";
 	string VertexShaderCode;
 	std::ifstream VertexShaderStream(vertex_shader_path, ios::in);
 
@@ -105,7 +105,7 @@ void Mesh::loadShaders()
 	}
 
 	//Read Fragment Shader
-	string fragment_shader_path = "fragment.shader";
+	string fragment_shader_path = "shaders/obj_fragment.shader";
 	string FragmentShaderCode;
 	std::ifstream FragmentShaderStream(fragment_shader_path, ios::in);
 
