@@ -66,9 +66,11 @@ void Mesh::updateMatrix()
 
 void Mesh::draw()
 {
-	glBindVertexArray(VAO);
-
 	glUseProgram(shaderProgram);
+
+	updateMatrix();
+
+	glBindVertexArray(VAO);
 
 	if (!indices.empty())
 	{
@@ -85,7 +87,18 @@ void Mesh::draw()
 void Mesh::loadShaders()
 {
 	// Read the Vertex Shader code from the file
-	string vertex_shader_path = "shaders/obj_vertex.shader";
+	string vertex_shader_path = "";// = "shaders/obj_vertex.shader";
+	string fragment_shader_path = "";
+	if (this->type == Mesh_Type::TERRAIN)
+	{
+		vertex_shader_path = "shaders/skybox_vertex.shader";
+		fragment_shader_path = "shaders/skybox_fragment.shader";
+	}
+	else
+	{
+		vertex_shader_path = "shaders/obj_vertex.shader";
+		fragment_shader_path = "shaders/obj_fragment.shader";
+	}
 	string VertexShaderCode;
 	std::ifstream VertexShaderStream(vertex_shader_path, ios::in);
 
@@ -96,13 +109,12 @@ void Mesh::loadShaders()
 		VertexShaderStream.close();
 	}
 	else {
-		printf("Impossible to open %s. Are you in the right directory ?\n", vertex_shader_path.c_str());
+		printf("Impossible to open vertex shader %s. Are you in the right directory ?\n", vertex_shader_path.c_str());
 		getchar();
 		exit(-1);
 	}
 
 	//Read Fragment Shader
-	string fragment_shader_path = "shaders/obj_fragment.shader";
 	string FragmentShaderCode;
 	std::ifstream FragmentShaderStream(fragment_shader_path, ios::in);
 
@@ -113,7 +125,7 @@ void Mesh::loadShaders()
 		FragmentShaderStream.close();
 	}
 	else {
-		printf("Impossible to open %s. Are you in the right directory ?\n", fragment_shader_path.c_str());
+		printf("Impossible to open fragment shader %s. Are you in the right directory ?\n", fragment_shader_path.c_str());
 		getchar();
 		exit(-1);
 	}

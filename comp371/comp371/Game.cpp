@@ -83,11 +83,8 @@ void Game::mainLoop()
 		glDepthFunc(GL_LESS);
 		glEnable(GL_DEPTH_TEST);
 
-		chair->updateMatrix();
-		chair->draw();
-
-		terrain->updateMatrix();
 		terrain->draw();
+		chair->draw();
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);

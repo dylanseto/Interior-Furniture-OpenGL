@@ -94,5 +94,11 @@
     <None Include="vertex.shader">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="shaders\skybox_vertex.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\skybox_fragment.shader">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
