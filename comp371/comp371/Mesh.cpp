@@ -3,6 +3,7 @@
 #include "..\glm\gtc\matrix_transform.hpp"
 #include "..\glm\gtx\rotate_vector.hpp"
 #include "gtc/type_ptr.hpp"
+#include "MeshCreator.h"
 
 #include <iostream>
 #include <fstream>
@@ -13,7 +14,7 @@ using namespace std;
 Mesh::Mesh()
 {
 	this->updateBuffer();
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(2, 2, 2));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5, 0.5, 0.5));
 	this->updateMatrix();
 }
 

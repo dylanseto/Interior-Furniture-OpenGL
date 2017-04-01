@@ -27,6 +27,8 @@ void Game::init()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+	glfwWindowHint(GLFW_SAMPLES, 4);
+	glEnable(GL_MULTISAMPLE);
 
 
 	this->window = glfwCreateWindow(width, height, "COMP371 Project", nullptr, nullptr);
@@ -54,6 +56,9 @@ void Game::init()
 	glfwSetKeyCallback(window, EventHandler::key_callback);
 	glfwSetMouseButtonCallback(window, EventHandler::mouse_button_callback);
 	glfwSetWindowSizeCallback(window, EventHandler::windowResize_callback);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 
 	//TODO: Have mesh creator functions.
 

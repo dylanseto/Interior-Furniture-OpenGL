@@ -1,6 +1,6 @@
 #include "camera.h"
 
-camera::camera() : camera(glm::vec3(0.0f, 0.0f, 3.0f))
+camera::camera() : camera(glm::vec3(0.0f, 0.0f, 1.0f))
 {
 }
 

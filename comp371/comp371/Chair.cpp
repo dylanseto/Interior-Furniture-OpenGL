@@ -16,7 +16,7 @@ Chair::Chair() : Mesh()
 	{
 		cout << "[LOAD] Loaded Chair." << endl;
 		this->updateBuffer();
-		modelMatrix = glm::scale(modelMatrix, glm::vec3(2, 2, 2));
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5, 0.5, 0.5));
 		this->updateMatrix();
 	}
 }

@@ -21,8 +21,8 @@ protected:
 	Mesh_Type type;
 	GLuint shaderProgram;
 
-private:
 	GLuint VAO, VBO, EBO;
+private:
 	bool hasPoints;
 
 	GLuint viewMatrixLoc;
