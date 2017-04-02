@@ -98,7 +98,7 @@ void Game::mainLoop()
 
 glm::mat4 Game::getProjection()
 {
-	return glm::perspective(cam->getFOV(), ((float)width / (float)height), 0.1f, 3.5f);
+	return glm::perspective(cam->getFOV(), ((float)width / (float)height), 0.1f, 1000.0f);
 }
 
 glm::mat4 Game::getView()

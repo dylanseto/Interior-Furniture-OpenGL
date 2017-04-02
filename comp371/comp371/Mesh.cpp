@@ -14,7 +14,7 @@ using namespace std;
 Mesh::Mesh()
 {
 	this->updateBuffer();
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5, 0.5, 0.5));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1, 0.1, 0.1));
 	this->updateMatrix();
 }
 

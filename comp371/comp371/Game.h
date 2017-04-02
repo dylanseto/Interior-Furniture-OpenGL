@@ -38,5 +38,7 @@ public:
 	glm::mat4 getProjection();
 	glm::mat4 getView();
 
+	camera* getCamera(){ return cam; }
+
 	static Game* getInstance();
 };
