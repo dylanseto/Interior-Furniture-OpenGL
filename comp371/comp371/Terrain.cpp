@@ -7,6 +7,7 @@
 Terrain::Terrain()
 {
 	this->type = Mesh_Type::TERRAIN;
+	this->texture = TerrainType::TYPE_MOUNTAIN;
 
 	//UVs and normals are unused, so just send the function dummy vectors
 	if (MeshCreator::loadCube(this->vertices, vector<GLfloat>(), vector<GLfloat>()))
@@ -61,7 +62,7 @@ void Terrain::updateBuffer()
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 
 	glActiveTexture(GL_TEXTURE0);
-	GLuint cubemapTexture = MeshCreator::createTerrain("mountain"); // temp
+	GLuint cubemapTexture = MeshCreator::createTerrain(TerrainHelper::getTextureValue(texture));
 	cout << "[Load] Loaded SkyBox texture." << endl;
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 }

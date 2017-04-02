@@ -1,9 +1,13 @@
 #pragma once
 
 #include "Mesh.h"
+#include "TerrainType.h"
+#include <string>
 
 class Terrain : public Mesh
 {
+private:
+	TerrainType texture;
 public:
 	Terrain();
 	void render();
