@@ -15,5 +15,10 @@ public:
 	vec3 getPos();
 	float getFOV();
 
+	void rotateRight();
+	void rotateLeft();
+	void rotateUp();
+	void rotateDown();
+
 	//TODO: Move camera.
 };

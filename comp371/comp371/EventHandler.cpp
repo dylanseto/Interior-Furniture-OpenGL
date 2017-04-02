@@ -6,6 +6,8 @@
 #include "Game.h"
 
 #include <iostream>
+#include "Game.h"
+
 #include <thread>
 
 bool EventHandler::GetPosition = false;
@@ -17,6 +19,22 @@ void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int a
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
+	else if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
+	{
+		Game::getInstance()->getCamera()->rotateRight();
+	}
+	else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
+	{
+		Game::getInstance()->getCamera()->rotateLeft();
+	}
+	else if (key == GLFW_KEY_UP && action == GLFW_PRESS)
+	{
+		Game::getInstance()->getCamera()->rotateUp();
+	}
+	else if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
+	{
+		Game::getInstance()->getCamera()->rotateDown();
 	}
 }
 

@@ -54,7 +54,7 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\meshes</Filter>
     </ClCompile>
-    <ClCompile Include="TextureHelper.cpp">
+    <ClCompile Include="TerrainHelper.cpp">
       <Filter>Source Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,11 +86,11 @@
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextureTypes.h">
-      <Filter>Header Files\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainType.h">
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
