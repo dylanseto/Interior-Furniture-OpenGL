@@ -208,7 +208,6 @@ GLuint MeshCreator::createTerrain(Terrain* terrain)
 			GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0,
 			GL_RGB, faces[i]->getWidth(), faces[i]->getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image
 			);
-		cout << glGetError() << endl;
 
 		//SOIL_free_image_data(image); //free resources
 	}

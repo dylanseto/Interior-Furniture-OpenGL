@@ -51,7 +51,7 @@ void camera::rotateLeft()
 	this->xAxis = glm::normalize(glm::rotate(this->xAxis, glm::radians(-10.f), yAxis));
 }
 
-void camera::rotateUp()
+void camera::rotateDown()
 {
 	if (yRotations > -80)
 	{
@@ -62,7 +62,7 @@ void camera::rotateUp()
 	}
 }
 
-void camera::rotateDown()
+void camera::rotateUp()
 {
 	if (yRotations < 80)
 	{
@@ -70,6 +70,5 @@ void camera::rotateDown()
 		this->pos = glm::rotate(this->pos, glm::radians(10.f), xAxis);
 		this->pos = glm::translate(vec3(-0, -0, -0)) * vec4(this->pos, 1);
 		yRotations += 10;
-		cout << yRotations << endl;
 	}
 }
