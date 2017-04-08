@@ -8,6 +8,10 @@ class camera
 private:
 	vec3 pos;
 	float fov;
+
+	vec3 yAxis;
+	vec3 xAxis;
+	float yRotations;
 public:
 	camera();
 	camera(vec3 pos);
