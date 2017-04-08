@@ -190,12 +190,12 @@ GLuint MeshCreator::createTerrain (string textureName)
 {
 	std::cout << "Texture: " << textureName << endl;
 	vector<string> faces;
-	faces.push_back("res/" + textureName + "/right.jpg");
-	faces.push_back("res/" + textureName +"/left.jpg");
-	faces.push_back("res/" + textureName + "/top.jpg");
-	faces.push_back("res/" + textureName + "/bottom.jpg");
-	faces.push_back("res/" + textureName + "/back.jpg");
-	faces.push_back("res/" + textureName + "/front.jpg");
+	faces.push_back("res/walls/wall1.jpg");
+	faces.push_back("res/walls/wall1.jpg");
+	faces.push_back("res/ceilings/ceiling1.jpg");
+	faces.push_back("res/floors/floor1.jpg");
+	faces.push_back("res/walls/wall1.jpg");
+	faces.push_back("res/walls/wall1.jpg");
 
 	GLuint textureID;
 	glGenTextures(1, &textureID);
@@ -216,9 +216,9 @@ GLuint MeshCreator::createTerrain (string textureName)
 	}
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_REPEAT);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 
 	return textureID;
