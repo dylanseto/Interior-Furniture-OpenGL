@@ -39,6 +39,7 @@ public:
 	glm::mat4 getView();
 
 	camera* getCamera(){ return cam; }
+	Terrain* getTerrain(){ return terrain; }
 
 	static Game* getInstance();
 };

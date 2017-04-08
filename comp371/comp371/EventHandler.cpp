@@ -36,6 +36,18 @@ void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int a
 	{
 		Game::getInstance()->getCamera()->rotateDown();
 	}
+	else if (key == GLFW_KEY_1 && action == GLFW_PRESS)
+	{
+		Game::getInstance()->getTerrain()->changeCeiling();
+	}
+	else if (key == GLFW_KEY_2 && action == GLFW_PRESS)
+	{
+		Game::getInstance()->getTerrain()->changeWall();
+	}
+	else if (key == GLFW_KEY_3 && action == GLFW_PRESS)
+	{
+		Game::getInstance()->getTerrain()->changeFloor();
+	}
 }
 
 void EventHandler::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)

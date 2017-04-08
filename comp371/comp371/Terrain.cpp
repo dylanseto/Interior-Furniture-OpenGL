@@ -7,12 +7,17 @@
 Terrain::Terrain()
 {
 	this->type = Mesh_Type::TERRAIN;
-	this->texture = TerrainType::TYPE_MOUNTAIN;
+	//this->texture = TerrainType::TYPE_MOUNTAIN;
 
 	//UVs and normals are unused, so just send the function dummy vectors
 	if (MeshCreator::loadCube(this->vertices, vector<GLfloat>(), vector<GLfloat>()))
 	{
 		cout << "[LOAD] Loaded SkyBox." << endl;
+
+		this->wallTexture = 0;
+		this->floorTexture = 0;
+		this->ceilingTexture = 0;
+
 		this->updateBuffer();
 
 		this->updateMatrix();
@@ -46,7 +51,6 @@ void Terrain::draw()
 
 void Terrain::updateBuffer()
 {
-	std::cout << "buffer" << std::endl;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
@@ -61,8 +65,46 @@ void Terrain::updateBuffer()
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
 
+	updateTexture();
+}
+
+void Terrain::updateTexture()
+{
 	glActiveTexture(GL_TEXTURE0);
-	GLuint cubemapTexture = MeshCreator::createTerrain(TerrainHelper::getTextureValue(texture));
+	GLuint cubemapTexture = MeshCreator::createTerrain(this);
 	cout << "[Load] Loaded SkyBox texture." << endl;
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+}
+
+void Terrain::changeCeiling()
+{
+	ceilingTexture = (ceilingTexture + 1) % TerrainHelper::NUM_CEILINGS;
+	updateTexture();
+}
+
+void Terrain::changeWall()
+{
+	wallTexture = (wallTexture + 1) % TerrainHelper::NUM_WALLS;
+	updateTexture();
+}
+
+void Terrain::changeFloor()
+{
+	floorTexture = (floorTexture + 1) % TerrainHelper::NUM_FLOORS;
+	updateTexture();
+}
+
+int Terrain::getCeiling()
+{
+	return this->ceilingTexture;
+}
+
+int Terrain::getFloor()
+{
+	return this->floorTexture;
+}
+
+int Terrain::getWall()
+{
+	return this->wallTexture;
 }

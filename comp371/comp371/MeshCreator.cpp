@@ -186,33 +186,31 @@ bool MeshCreator::loadCube(vector<GLfloat> &vertices, vector<GLfloat> normals, v
 	return true;
 }
 
-GLuint MeshCreator::createTerrain (string textureName)
+GLuint MeshCreator::createTerrain(Terrain* terrain)
 {
-	std::cout << "Texture: " << textureName << endl;
-	vector<string> faces;
-	faces.push_back("res/walls/wall1.jpg");
-	faces.push_back("res/walls/wall1.jpg");
-	faces.push_back("res/ceilings/ceiling1.jpg");
-	faces.push_back("res/floors/floor1.jpg");
-	faces.push_back("res/walls/wall1.jpg");
-	faces.push_back("res/walls/wall1.jpg");
+	//std::cout << "Texture: " << textureName << endl;
+	vector<textureMap*> faces;
+	faces.push_back(MeshCreator::getImage(TextureType::RIGHT, terrain->getWall()));
+	faces.push_back(MeshCreator::getImage(TextureType::LEFT, terrain->getWall()));
+	faces.push_back(MeshCreator::getImage(TextureType::CEILING, terrain->getCeiling()));
+	faces.push_back(MeshCreator::getImage(TextureType::FLOOR, terrain->getFloor()));
+	faces.push_back(MeshCreator::getImage(TextureType::FRONT, terrain->getWall()));
+	faces.push_back(MeshCreator::getImage(TextureType::BACK, terrain->getWall()));
 
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 
-	int width, height;
-	unsigned char* image;
-
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 	for (GLuint i = 0; i < faces.size(); i++)
 	{
-		image = SOIL_load_image(faces[i].c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+		unsigned char* image = faces[i]->getImage();
 		glTexImage2D(
 			GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0,
-			GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image
+			GL_RGB, faces[i]->getWidth(), faces[i]->getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image
 			);
+		cout << glGetError() << endl;
 
-		SOIL_free_image_data(image); //free resources
+		//SOIL_free_image_data(image); //free resources
 	}
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -222,4 +220,101 @@ GLuint MeshCreator::createTerrain (string textureName)
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 
 	return textureID;
+}
+
+textureMap* MeshCreator::getImage(TextureType type, int index)
+{
+	switch (type)
+	{
+	case TextureType::FRONT:
+	case TextureType::BACK:
+	case TextureType::RIGHT:
+	case TextureType::LEFT:
+	{
+		try
+		{
+			return MeshCreator::walls.at(index);
+		}
+		catch (std::out_of_range)
+		{
+			string dir = "res/walls/wall" + to_string(index) + ".jpg";
+			int width, height;
+
+			unsigned char* image = SOIL_load_image(dir.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+			textureMap* newWall = new textureMap(image, width, height);
+
+			MeshCreator::walls.resize(index);
+			MeshCreator::walls.insert(MeshCreator::walls.begin() + index, newWall);
+
+			if (image == nullptr)
+			{
+				cout << "[Error] Loading Wall # " << index << " at " << dir << endl;
+			}
+			else
+			{
+				cout << "[LOAD] Loaded Wall #" << index << endl;
+			}
+			return newWall;
+		}
+		break;
+	}
+	case TextureType::CEILING:
+		try
+		{
+			return ceilings.at(index);
+		}
+		catch (std::out_of_range)
+		{
+			string dir = "res/ceilings/ceiling" + to_string(index) + ".jpg";
+			int width, height;
+			unsigned char* image = SOIL_load_image(dir.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+			textureMap* newCeiling = new textureMap(image, width, height);
+
+			ceilings.resize(index);
+			ceilings.insert(ceilings.begin() + index, newCeiling);
+
+			if (image == nullptr)
+			{
+				cout << "[Error] Loading Ceiling # " << index << " at " << dir << endl;
+			}
+			else
+			{
+				cout << "[LOAD] Loaded Ceiling #" << index << endl;
+			}
+
+			return newCeiling;
+		}
+		break;
+	case TextureType::FLOOR:
+		try
+		{
+			return floors.at(index);
+		}
+		catch (std::out_of_range)
+		{
+			string dir = "res/floors/floor" + to_string(index) + ".jpg";
+
+			int width, height;
+			unsigned char* image = SOIL_load_image(dir.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+
+			textureMap* newFloor = new textureMap(image, width, height);
+
+			MeshCreator::floors.resize(index);
+			floors.insert(floors.begin() + index, newFloor);
+
+			if (image == nullptr)
+			{
+				cout << "[Error] Loading Floor # " << index << " at " << dir << endl;
+			}
+			else
+			{
+				cout << "[LOAD] Loaded Floor #" << index << endl;
+			}
+			return newFloor;
+		}
+		break;
+	default:
+		cout << "Unknown" << endl;
+		return nullptr;
+	}
 }

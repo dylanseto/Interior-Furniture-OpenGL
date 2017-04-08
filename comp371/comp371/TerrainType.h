@@ -1,15 +1,8 @@
 #pragma once
 
-#include <string>
-using namespace std;
-
-enum TerrainType
-{
-	TYPE_MOUNTAIN,
-	TYPE_PARK
-};
-
 namespace TerrainHelper
 {
-	string getTextureValue(TerrainType type);
+	const int NUM_CEILINGS = 2;
+	const int NUM_FLOORS = 2;
+	const int NUM_WALLS = 2;
 };
