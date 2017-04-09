@@ -10,8 +10,6 @@
 
 using namespace std;
 
-Toilet* chair;
-
 Game::Game()
 {
 	this->width = 800;
@@ -66,8 +64,14 @@ void Game::init()
 
 	//this->mesh = new Mesh();
 	//this->mesh->loadShaders();
-	chair = new Toilet();
+	Mesh* toilet = new Toilet();
+	toilet->loadShaders();
+
+	Mesh* chair = new Chair();
 	chair->loadShaders();
+
+	objects.push_back(toilet);
+	objects.push_back(chair);
 
 	terrain = new Terrain();
 	terrain->loadShaders();
@@ -98,7 +102,10 @@ void Game::mainLoop()
 		glEnable(GL_DEPTH_TEST);
 
 		terrain->draw();
-		chair->draw();
+		for (Mesh* mesh : objects)
+		{
+			mesh->draw();
+		}
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);

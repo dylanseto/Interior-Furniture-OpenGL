@@ -17,14 +17,15 @@ class Game
 private:
 	static Game* instance;
 	GLFWwindow* window;
-	Mesh* mesh; // temp.
+	//Mesh* mesh; // temp.
+	vector<Mesh*> objects;
 	GLuint width, height;
 	camera* cam;
 	Terrain* terrain;
 public:
 	Game();
 
-	Mesh* getMesh(){ return this->mesh; }
+	//Mesh* getMesh(){ return this->mesh; }
 
 	GLuint getWidth(){ return this->width; }
 	void setWidth(GLuint width){ this->width = width;  }
