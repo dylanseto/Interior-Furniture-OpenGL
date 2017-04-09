@@ -77,7 +77,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCreator.cpp" />
-    <ClCompile Include="TerrainHelper.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Toilet.cpp" />
   </ItemGroup>

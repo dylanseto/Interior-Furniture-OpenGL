@@ -54,9 +54,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\meshes</Filter>
     </ClCompile>
-    <ClCompile Include="TerrainHelper.cpp">
-      <Filter>Source Files\Helpers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">

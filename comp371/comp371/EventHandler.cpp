@@ -71,3 +71,8 @@ void EventHandler::windowResize_callback(GLFWwindow* window, int width, int heig
 {
 	glViewport(0, 0, width, height);
 }
+
+void EventHandler::windowClosed_callback(GLFWwindow* window)
+{
+	Game::getInstance()->close();
+}

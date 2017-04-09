@@ -32,6 +32,7 @@ public:
 	void setHeight(GLuint height){ this->height = height; }
 
 	void init();
+	void close();
 	void mainLoop();
 	void updateShader();
 

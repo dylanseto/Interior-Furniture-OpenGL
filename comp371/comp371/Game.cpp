@@ -6,6 +6,7 @@
 #include "EventHandler.h"
 #include "Chair.h"
 #include "Toilet.h"
+#include "MeshCreator.h"
 
 using namespace std;
 
@@ -56,6 +57,7 @@ void Game::init()
 	glfwSetKeyCallback(window, EventHandler::key_callback);
 	glfwSetMouseButtonCallback(window, EventHandler::mouse_button_callback);
 	glfwSetWindowSizeCallback(window, EventHandler::windowResize_callback);
+	glfwSetWindowCloseCallback(window, EventHandler::windowClosed_callback);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -71,14 +73,21 @@ void Game::init()
 	terrain->loadShaders();
 }
 
+void Game::close()
+{
+	delete cam;
+	delete terrain;
+
+	MeshCreator::walls.clear();
+	MeshCreator::ceilings.clear();
+	MeshCreator::floors.clear();
+}
+
 void Game::mainLoop()
 {
 	while (!glfwWindowShouldClose(this->window))
 	{
 		glfwPollEvents();
-
-		//Draw
-		//glDepthFunc(GL_LESS);
 
 		// Clear the colorbuffer
 		//glClearColor(0.0f, 0.5f, 0.5f, 1.0f);
