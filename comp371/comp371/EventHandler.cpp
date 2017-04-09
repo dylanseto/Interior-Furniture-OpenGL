@@ -48,6 +48,10 @@ void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int a
 	{
 		Game::getInstance()->getTerrain()->changeFloor();
 	}
+	else
+	{
+		Game::getInstance()->getSelected()->handleMotion(key);
+	}
 }
 
 void EventHandler::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)

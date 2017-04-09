@@ -15,6 +15,7 @@ Game::Game()
 	this->width = 800;
 	this->height = 800;
 	this->cam = new camera();
+	this->selectedIndex = 0;
 }
 
 void Game::init()
@@ -70,7 +71,7 @@ void Game::init()
 	Mesh* chair = new Chair();
 	chair->loadShaders();
 
-	objects.push_back(toilet);
+	//objects.push_back(toilet);
 	objects.push_back(chair);
 
 	terrain = new Terrain();
@@ -114,12 +115,18 @@ void Game::mainLoop()
 
 glm::mat4 Game::getProjection()
 {
-	return glm::perspective(cam->getFOV(), ((float)width / (float)height), 0.1f, 1000.0f);
+	return glm::perspective(cam->getFOV(), ((float)width / (float)height), 0.1f, 3.0f);
 }
 
 glm::mat4 Game::getView()
 {
 	return glm::lookAt(cam->getPos(), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+}
+
+Mesh* Game::getSelected()
+{
+	if (objects.empty()) return nullptr;
+	else return objects[selectedIndex];
 }
 
 

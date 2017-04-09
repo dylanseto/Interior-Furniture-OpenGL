@@ -177,29 +177,20 @@ void Mesh::loadShaders()
 
 void Mesh::handleMotion(int key)
 {
-	if (key == GLFW_KEY_LEFT)
+	if (key == GLFW_KEY_W)
 	{
-		modelMatrix = glm::rotate(glm::mat4(1.0f), ROTATION_AMT, glm::vec3(0.0f, 0.0f, 1.0f))*modelMatrix;
-		//xAxis = glm::rotateZ(xAxis, -ROTATION_AMT); // rotate seems to rotate the locals axis
-		//so we adjust the axis of rotation when the rotating.
+		modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
 	}
-	else if (key == GLFW_KEY_RIGHT)
+	else if (key == GLFW_KEY_A)
 	{
-		modelMatrix = glm::rotate(glm::mat4(1.0f), -ROTATION_AMT, glm::vec3(0.0f, 0.0f, 1.0f))*modelMatrix;
-		//xAxis = glm::rotateZ(xAxis, ROTATION_AMT);
+		modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
 	}
-	else if (key == GLFW_KEY_UP)
+	else if (key == GLFW_KEY_S)
 	{
-		modelMatrix = glm::rotate(glm::mat4(1.0f), -ROTATION_AMT, glm::vec3(1.0f, 0.0f, 0.0f))*modelMatrix;
-		//xAxis = glm::rotateX(xAxis, ROTATION_AMT);
-		///zAxis = glm::rotateX(zAxis, ROTATION_AMT);
-		//zAxis = glm::normalize(zAxis);
+		modelMatrix = glm::translate(modelMatrix, vec3(0, -1, 0));
 	}
-	else if (key == GLFW_KEY_DOWN)
+	else if (key == GLFW_KEY_D)
 	{
-		modelMatrix = glm::rotate(glm::mat4(1.0f), ROTATION_AMT, glm::vec3(1.0f, 0.0f, 0.0f))*modelMatrix;
-		//xAxis = glm::rotateX(xAxis, -ROTATION_AMT);
-		//zAxis = glm::rotateX(zAxis, -ROTATION_AMT);
-		//zAxis = glm::normalize(zAxis);
+		modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
 	}
 }

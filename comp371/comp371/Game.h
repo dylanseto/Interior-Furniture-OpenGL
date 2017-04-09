@@ -22,6 +22,8 @@ private:
 	GLuint width, height;
 	camera* cam;
 	Terrain* terrain;
+
+	int selectedIndex;
 public:
 	Game();
 
@@ -42,6 +44,7 @@ public:
 
 	camera* getCamera(){ return cam; }
 	Terrain* getTerrain(){ return terrain; }
+	Mesh* getSelected();
 
 	static Game* getInstance();
 };
