@@ -16,6 +16,9 @@ Toilet::Toilet() : Mesh()
 	{
 		cout << "[LOAD] Loaded Chair." << endl;
 		this->updateBuffer();
+
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1, 0.1, 0.1));
+		this->updateMatrix();
 	}
 }
 
