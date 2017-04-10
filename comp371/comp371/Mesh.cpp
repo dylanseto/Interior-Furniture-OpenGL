@@ -21,6 +21,7 @@ Mesh::Mesh(vector<GLfloat> vertices, vector<unsigned int> indices)
 	this->vertices = vertices;
 	this->indices = indices;
 	updateBuffer();
+	pos = vec3(0, 0, 0);
 }
 
 Mesh::~Mesh()
@@ -177,20 +178,28 @@ void Mesh::loadShaders()
 
 void Mesh::handleMotion(int key)
 {
-	if (key == GLFW_KEY_W)
+	if (key == GLFW_KEY_W && pos.y+1 < 3)
 	{
 		modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
+		pos.y += 1;
+		cout << pos.y << endl;
 	}
-	else if (key == GLFW_KEY_A)
+	else if (key == GLFW_KEY_A && pos.x + 1 > -3)
 	{
-		modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
+		modelMatrix = glm::translate(modelMatrix, vec3(-1, 0, 0));
+		pos.x--;
+		cout << pos.x << endl;
 	}
-	else if (key == GLFW_KEY_S)
+	else if (key == GLFW_KEY_S && pos.y + 1 > -4)
 	{
 		modelMatrix = glm::translate(modelMatrix, vec3(0, -1, 0));
+		pos.y -= 1;
+		cout << pos.y << endl;
 	}
-	else if (key == GLFW_KEY_D)
+	else if (key == GLFW_KEY_D && pos.x+1 < 4)
 	{
-		modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
+		modelMatrix = glm::translate(modelMatrix, vec3(1, 0, 0));
+		pos.x++;
+		cout << pos.x << endl;
 	}
 }

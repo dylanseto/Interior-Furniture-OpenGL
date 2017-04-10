@@ -29,6 +29,8 @@ private:
 	GLuint projectiontMatrixLoc;
 	GLuint modelMatrixLoc;
 
+	glm::vec3 pos;
+
 	const GLfloat ROTATION_AMT = (glm::pi<GLfloat>() / 40.0f);
 public:
 	Mesh();
@@ -36,6 +38,7 @@ public:
 	~Mesh();
 
 	vector<GLfloat> getVertices() { return this->vertices; }
+	glm::vec3 getPos(){ return pos; }
 
 	void draw();
 	void updateMatrix();
