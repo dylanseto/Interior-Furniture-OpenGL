@@ -66,7 +66,25 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 {
 	if (EventHandler::GetPosition)
 	{
-		//TODO: place new object.
+
+		//Calculate Ray
+		float width = Game::getInstance()->getWidth();
+		float height = Game::getInstance()->getHeight();
+
+		float x = (2.0f * xpos) / width - 1.0f;
+		float y = 1.0f - (2.0f * ypos) / height;
+		float z = 1.0f;
+		vec3 ray_nds = vec3(x, y, z);
+		vec4 ray_clip = vec4(ray_nds.x, ray_nds.y, -1.0, 1.0);
+		vec4 ray_eye = inverse(Game::getInstance()->getProjection()) * ray_clip;
+		ray_eye = vec4(ray_eye.x, ray_eye.y, -1.0, 0.0);
+		vec3 ray_wor = vec3(inverse(Game::getInstance()->getView()) * ray_eye);
+		ray_wor = normalize(ray_wor);
+
+		cout << "(" << ray_wor.x << "," << ray_wor.y << "," << ray_wor.z << ")" << endl;
+
+		//TODO: find closest edge of room (floor, wall, ceiling)
+		//TODO: insersection with other objects
 		EventHandler::GetPosition = false;
 	}
 }
