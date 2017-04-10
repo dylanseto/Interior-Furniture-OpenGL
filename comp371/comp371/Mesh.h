@@ -14,6 +14,7 @@ class Mesh
 protected:
 	vector<GLuint> indices;
 	vector<GLfloat> vertices;
+	vector<glm::vec3> boundingBox;
 
 	glm::mat4 modelMatrix;
 
@@ -39,11 +40,13 @@ public:
 
 	vector<GLfloat> getVertices() { return this->vertices; }
 	glm::vec3 getPos(){ return pos; }
+	vector<glm::vec3> getBound(){ return boundingBox; }
 
 	void draw();
 	void updateMatrix();
 	void loadShaders();
 	void handleMotion(int key);
 	bool hasRendered();
+	void createBoundingBox();
 	virtual void render() = 0;
 };

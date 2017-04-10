@@ -19,6 +19,8 @@ Toilet::Toilet() : Mesh()
 
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.4, 0.4, 0.4));
 		this->updateMatrix();
+
+		createBoundingBox();
 	}
 }
 

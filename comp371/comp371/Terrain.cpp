@@ -21,6 +21,8 @@ Terrain::Terrain()
 		this->updateBuffer();
 
 		this->updateMatrix();
+
+		createBoundingBox();
 	}
 }
 

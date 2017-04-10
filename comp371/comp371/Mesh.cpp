@@ -13,7 +13,6 @@ using namespace std;
 
 Mesh::Mesh()
 {
-	this->updateBuffer();
 }
 
 Mesh::Mesh(vector<GLfloat> vertices, vector<unsigned int> indices)
@@ -181,25 +180,91 @@ void Mesh::handleMotion(int key)
 	if (key == GLFW_KEY_W && pos.y+1 < 3)
 	{
 		modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
+
+		//adjust bounding box
+		for (vec3 bound : boundingBox)
+		{
+			bound = vec3(modelMatrix*vec4(bound,1));
+		}
+
 		pos.y += 1;
 		cout << pos.y << endl;
 	}
 	else if (key == GLFW_KEY_A && pos.x + 1 > -3)
 	{
 		modelMatrix = glm::translate(modelMatrix, vec3(-1, 0, 0));
+
+		//adjust bounding box
+		for (vec3 bound : boundingBox)
+		{
+			bound = vec3(modelMatrix*vec4(bound, 1));
+		}
+
 		pos.x--;
 		cout << pos.x << endl;
 	}
 	else if (key == GLFW_KEY_S && pos.y + 1 > -4)
 	{
 		modelMatrix = glm::translate(modelMatrix, vec3(0, -1, 0));
+
+		//adjust bounding box
+		for (vec3 bound : boundingBox)
+		{
+			bound = vec3(modelMatrix*vec4(bound, 1));
+		}
+
 		pos.y -= 1;
 		cout << pos.y << endl;
 	}
 	else if (key == GLFW_KEY_D && pos.x+1 < 4)
 	{
 		modelMatrix = glm::translate(modelMatrix, vec3(1, 0, 0));
+
+		//adjust bounding box
+		for (vec3 bound : boundingBox)
+		{
+			bound = vec3(modelMatrix*vec4(bound, 1));
+		}
+
 		pos.x++;
 		cout << pos.x << endl;
 	}
+}
+
+void Mesh::createBoundingBox()
+{
+	float xMax = -2;
+	float xMin = 2;
+	float yMax = -2;
+	float yMin = 2;
+	float zMax = -2;
+	float zMin = 2;
+
+	for (int i = 0; i != vertices.size(); i+=3)
+	{
+		float x = vertices[i];
+		float y = vertices[i+1];
+		float z = vertices[i+2];
+
+		if (x > xMax) xMax = x;
+		else if (x < xMin) xMin = x;
+
+		if (y > yMax) yMax = y;
+		else if (y < yMin) yMin = y;
+
+		if (z > zMax) zMax = z;
+		else if (z < zMin) zMin = z;
+	}
+
+	//Front face of bounding box.
+	boundingBox.push_back(vec3(xMax, yMax, zMax));
+	boundingBox.push_back(vec3(xMax, yMin, zMax));
+	boundingBox.push_back(vec3(xMin, yMin, zMax));
+	boundingBox.push_back(vec3(xMin, yMax, zMax));
+
+	//Back
+	boundingBox.push_back(vec3(xMax, yMax, zMin));
+	boundingBox.push_back(vec3(xMax, yMin, zMin));
+	boundingBox.push_back(vec3(xMin, yMin, zMin));
+	boundingBox.push_back(vec3(xMin, yMax, zMin));
 }
