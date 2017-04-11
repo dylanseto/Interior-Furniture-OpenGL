@@ -1,15 +1,17 @@
-#include "..\glm\gtc\matrix_transform.hpp"
-#include "..\glm\gtx\rotate_vector.hpp"
-#include "gtc/type_ptr.hpp"
 #include "meshCreator.h"
 #include "Chair.h"
 #include "Terrain.h"
+#include "Game.h"
 
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <string>
 #include <SOIL.h>
+
+#include "..\glm\gtc\matrix_transform.hpp"
+#include "..\glm\gtx\rotate_vector.hpp"
+#include "gtc/type_ptr.hpp"
 
 using namespace std;
 
@@ -186,8 +188,10 @@ bool MeshCreator::loadCube(vector<GLfloat> &vertices, vector<GLfloat> normals, v
 	return true;
 }
 
-GLuint MeshCreator::createTerrain(Terrain* terrain)
+void MeshCreator::createTerrain(Terrain* terrain)
 {
+	glActiveTexture(GL_TEXTURE0);
+
 	//std::cout << "Texture: " << textureName << endl;
 	vector<textureMap*> faces;
 	faces.push_back(MeshCreator::getImage(TextureType::RIGHT, terrain->getWall()));
@@ -216,9 +220,6 @@ GLuint MeshCreator::createTerrain(Terrain* terrain)
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_REPEAT);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
-
-	return textureID;
 }
 
 textureMap* MeshCreator::getImage(TextureType type, int index)
@@ -316,4 +317,50 @@ textureMap* MeshCreator::getImage(TextureType type, int index)
 		cout << "Unknown" << endl;
 		return nullptr;
 	}
+}
+
+bool MeshCreator::loadObjectTexture(Mesh* mesh)
+{
+	string img = "";
+	switch (mesh->getType())
+	{
+	case Mesh_Type::CHAIR:
+		img = "res/brick.jpg"; //temp
+		glActiveTexture(GL_TEXTURE1);
+		mesh->setTextureUnit(1);
+		break;
+	case Mesh_Type::TOILET:
+		img = "res/brick.jpg"; // temp
+		glActiveTexture(GL_TEXTURE2);
+		mesh->setTextureUnit(2);
+		break;
+	default:
+		img = "res/brick.jpg";
+		glActiveTexture(GL_TEXTURE2);
+		mesh->setTextureUnit(2);
+		break;
+	}
+
+	GLuint textureID;
+	glGenTextures(1, &textureID);
+
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+	for (GLuint i = 0; i < 6; i++)
+	{
+		int width, height;
+		unsigned char* image = SOIL_load_image(img.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+		glTexImage2D(
+			GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0,
+			GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image
+			);
+
+		SOIL_free_image_data(image); //free resources
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_REPEAT);
+
+	return true;
 }

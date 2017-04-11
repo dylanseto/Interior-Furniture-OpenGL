@@ -21,11 +21,14 @@ Toilet::Toilet() : Mesh()
 		this->updateMatrix();
 
 		createBoundingBox();
+		MeshCreator::loadObjectTexture(this);
 	}
 }
 
 void Toilet::render()
 {
+	glUseProgram(shaderProgram);
+	MeshCreator::loadObjectTexture(this);
 	//Update position
 	this->draw();
 }

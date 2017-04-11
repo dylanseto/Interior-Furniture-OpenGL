@@ -67,9 +67,11 @@ void Game::init()
 	//this->mesh->loadShaders();
 	Mesh* toilet = new Toilet();
 	toilet->loadShaders();
+	toilet->render();
 
 	Mesh* chair = new Chair();
 	chair->loadShaders();
+	chair->render();
 
 	//objects.push_back(toilet);
 	objects.push_back(chair);

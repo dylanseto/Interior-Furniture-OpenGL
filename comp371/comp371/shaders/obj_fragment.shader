@@ -1,10 +1,13 @@
 #version 330 core
 
-in vec4 color;
+in vec3 cord;
 
-out vec4 colorF;
+out vec4 color;
+
+uniform samplerCube obj_Texture;
 
 void main()
 {
-	colorF = color;
+	//color = vec4(1, 1, 1, 1);
+	color = texture(obj_Texture, cord);
 } 

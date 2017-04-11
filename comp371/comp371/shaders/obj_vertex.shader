@@ -7,10 +7,10 @@ uniform mat4 model_matrix;
 uniform mat4 view_matrix;
 uniform mat4 projection_matrix;
 
-out vec4 color;
+out vec3 cord;
 
 void main()
 {
     gl_Position = projection_matrix*view_matrix*model_matrix*vec4(position.x, position.y, position.z, 1.0);
-	color = vec4(1.0 , 0.5, position.z, 1.0);
+	cord = position;
 }

@@ -40,7 +40,8 @@ namespace MeshCreator
 	bool loadOBJ(string filename, vector<GLfloat> &vertices, vector<GLuint> &indices);
 
 	bool loadCube(vector<GLfloat> &vertices, vector<GLfloat> normals, vector<GLfloat> uvs);
-	GLuint createTerrain(Terrain* terrain);
+	bool loadObjectTexture(Mesh* mesh);
+	void createTerrain(Terrain* terrain);
 	textureMap* getImage(TextureType type, int index);
 
 	static vector<textureMap*> walls;

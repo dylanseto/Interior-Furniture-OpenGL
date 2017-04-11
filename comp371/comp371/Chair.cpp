@@ -21,11 +21,13 @@ Chair::Chair() : Mesh()
 		this->updateMatrix();
 
 		createBoundingBox();
+		MeshCreator::loadObjectTexture(this);
 	}
 }
 
 void Chair::render()
 {
-	//Update position
+	glUseProgram(shaderProgram);
+	MeshCreator::loadObjectTexture(this);
 	this->draw();
 }

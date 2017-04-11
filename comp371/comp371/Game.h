@@ -46,5 +46,7 @@ public:
 	Terrain* getTerrain(){ return terrain; }
 	Mesh* getSelected();
 
+	int getNumObjects(){ return this->objects.size(); }
+
 	static Game* getInstance();
 };

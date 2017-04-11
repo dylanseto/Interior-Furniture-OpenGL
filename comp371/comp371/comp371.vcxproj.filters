@@ -91,16 +91,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment.shader">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="vertex.shader">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="shaders\skybox_vertex.shader">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="shaders\skybox_fragment.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\obj_fragment.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\obj_vertex.shader">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

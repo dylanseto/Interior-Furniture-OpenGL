@@ -94,10 +94,10 @@
     <ClInclude Include="Toilet.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment.shader" />
+    <None Include="shaders\obj_fragment.shader" />
+    <None Include="shaders\obj_vertex.shader" />
     <None Include="shaders\skybox_fragment.shader" />
     <None Include="shaders\skybox_vertex.shader" />
-    <None Include="vertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

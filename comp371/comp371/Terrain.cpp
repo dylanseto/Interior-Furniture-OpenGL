@@ -72,10 +72,8 @@ void Terrain::updateBuffer()
 
 void Terrain::updateTexture()
 {
-	glActiveTexture(GL_TEXTURE0);
-	GLuint cubemapTexture = MeshCreator::createTerrain(this);
+	MeshCreator::createTerrain(this);
 	cout << "[Load] Loaded SkyBox texture." << endl;
-	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
 }
 
 void Terrain::changeCeiling()
