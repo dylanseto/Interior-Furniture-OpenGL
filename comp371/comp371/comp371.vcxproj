@@ -88,7 +88,6 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCreator.h" />
     <ClInclude Include="mesh_type.h" />
-    <ClInclude Include="pos.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="TerrainType.h" />
     <ClInclude Include="Toilet.h" />

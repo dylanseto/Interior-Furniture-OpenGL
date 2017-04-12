@@ -48,6 +48,14 @@ void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int a
 	{
 		Game::getInstance()->getTerrain()->changeFloor();
 	}
+	else if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
+	{
+		Game::getInstance()->moveSelction();
+	}
+	else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_PRESS)
+	{
+		Game::getInstance()->nextAddedObject();
+	}
 	else
 	{
 		Game::getInstance()->getSelected()->handleMotion(key);
@@ -85,6 +93,8 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 
 		//TODO: find closest edge of room (floor, wall, ceiling)
 		//TODO: insersection with other objects
+		//Add Object
+		Game::getInstance()->addObject(ray_wor); // temp.
 		EventHandler::GetPosition = false;
 	}
 }
