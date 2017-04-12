@@ -48,6 +48,10 @@ void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int a
 	{
 		Game::getInstance()->getTerrain()->changeFloor();
 	}
+	else if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
+	{
+		Game::getInstance()->moveSelction();
+	}
 	else
 	{
 		Game::getInstance()->getSelected()->handleMotion(key);

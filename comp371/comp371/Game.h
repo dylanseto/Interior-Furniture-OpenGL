@@ -45,6 +45,7 @@ public:
 	camera* getCamera(){ return cam; }
 	Terrain* getTerrain(){ return terrain; }
 	Mesh* getSelected();
+	void moveSelction();
 
 	int getNumObjects(){ return this->objects.size(); }
 

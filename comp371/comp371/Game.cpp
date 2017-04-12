@@ -131,6 +131,11 @@ Mesh* Game::getSelected()
 	else return objects[selectedIndex];
 }
 
+void Game::moveSelction()
+{
+	selectedIndex = (selectedIndex + 1) % objects.size();
+}
+
 
 Game* Game::instance;
 

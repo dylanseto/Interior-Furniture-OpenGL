@@ -74,9 +74,6 @@
     <ClInclude Include="mesh_type.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="pos.h">
-      <Filter>Header Files\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Toilet.h">
       <Filter>Header Files\Mesh</Filter>
     </ClInclude>
