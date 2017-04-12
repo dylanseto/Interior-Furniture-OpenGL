@@ -89,6 +89,8 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 
 		//TODO: find closest edge of room (floor, wall, ceiling)
 		//TODO: insersection with other objects
+		//Add Object
+		Game::getInstance()->addObject(ray_wor); // temp.
 		EventHandler::GetPosition = false;
 	}
 }

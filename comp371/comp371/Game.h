@@ -24,6 +24,7 @@ private:
 	Terrain* terrain;
 
 	int selectedIndex;
+	int addedObject;
 public:
 	Game();
 
@@ -46,6 +47,9 @@ public:
 	Terrain* getTerrain(){ return terrain; }
 	Mesh* getSelected();
 	void moveSelction();
+	int getAddedObject(){ return this->addedObject; }
+	void nextAddedObject();
+	void addObject(vec3 pos);
 
 	int getNumObjects(){ return this->objects.size(); }
 

@@ -16,6 +16,7 @@ Game::Game()
 	this->height = 800;
 	this->cam = new camera();
 	this->selectedIndex = 0;
+	this->addedObject = 0;
 }
 
 void Game::init()
@@ -134,6 +135,47 @@ Mesh* Game::getSelected()
 void Game::moveSelction()
 {
 	selectedIndex = (selectedIndex + 1) % objects.size();
+}
+
+void Game::nextAddedObject()
+{
+	this->addedObject = (addedObject + 1) / NUM_OBJ_TYPES;
+
+	cout << "[ADDED OBJECT] Switched To " << endl;
+	switch (addedObject)
+	{
+	case Mesh_Type::CHAIR:
+		cout << "chair" << endl;
+		break;
+	case Mesh_Type::TOILET:
+		cout << "toilet." << endl;
+		break;
+	}
+}
+
+void Game::addObject(vec3 pos)
+{
+	//For now, not using pos.
+	Mesh* newObject;
+	switch (addedObject)
+	{
+	case Mesh_Type::CHAIR:
+		newObject = new Chair();
+		cout << "[ADDED] Added new chair to the scene ";
+		break;
+	case Mesh_Type::TOILET:
+		newObject = new Toilet();
+		cout << "[ADDED] Added new toilet to the scene ";
+		break;
+	default:
+		newObject = new Toilet();
+		cout << "[ADDED] Added new toilet to the scene (because we had no idea what you wanted) ";
+		break;
+	}
+	cout << "at pos (" << pos.x << "," << pos.y << "," << pos.z << ")" << endl;
+
+	newObject->loadShaders();
+	objects.push_back(newObject);
 }
 
 
