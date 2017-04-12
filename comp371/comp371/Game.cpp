@@ -139,9 +139,9 @@ void Game::moveSelction()
 
 void Game::nextAddedObject()
 {
-	this->addedObject = (addedObject + 1) / NUM_OBJ_TYPES;
+	this->addedObject = (addedObject+1) % NUM_OBJ_TYPES;
 
-	cout << "[ADDED OBJECT] Switched To " << endl;
+	cout << "[ADDED OBJECT] Switched to ";
 	switch (addedObject)
 	{
 	case Mesh_Type::CHAIR:

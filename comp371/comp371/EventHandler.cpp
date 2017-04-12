@@ -52,6 +52,10 @@ void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int a
 	{
 		Game::getInstance()->moveSelction();
 	}
+	else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_PRESS)
+	{
+		Game::getInstance()->nextAddedObject();
+	}
 	else
 	{
 		Game::getInstance()->getSelected()->handleMotion(key);
