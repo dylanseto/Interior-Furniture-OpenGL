@@ -1,13 +1,15 @@
 #include "Mesh.h"
 #include "Game.h"
-#include "..\glm\gtc\matrix_transform.hpp"
-#include "..\glm\gtx\rotate_vector.hpp"
-#include "gtc/type_ptr.hpp"
 #include "MeshCreator.h"
+#include "IntersectionHelper.h"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
+#include "..\glm\gtc\matrix_transform.hpp"
+#include "..\glm\gtx\rotate_vector.hpp"
+#include "gtc/type_ptr.hpp"
 
 using namespace std;
 
@@ -178,57 +180,105 @@ void Mesh::loadShaders()
 
 void Mesh::handleMotion(int key)
 {
-	if (key == GLFW_KEY_W && pos.y+1 < 3)
+	if (key == GLFW_KEY_W)
 	{
-		modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
+		mat4 tempModel = glm::translate(modelMatrix, vec3(0, 0.5, 0));
+		vector<vec3> tempBounding;
 
-		//adjust bounding box
-		for (vec3 bound : boundingBox)
+		for (int i = 0; i != boundingBox.size(); i++)
 		{
-			bound = vec3(modelMatrix*vec4(bound,1));
+			tempBounding.push_back(vec3(modelMatrix*vec4(boundingBox[i], 1)));
 		}
 
-		pos.y += 1;
-		cout << pos.y << endl;
+		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_UP);
+
+		if (!intersect)
+		{
+			modelMatrix = tempModel;
+
+			//adjust bounding box
+			for (vec3 bound : boundingBox)
+			{
+				bound = vec3(modelMatrix*vec4(bound, 1));
+			}
+
+			pos.y += 1;
+		}
 	}
-	else if (key == GLFW_KEY_A && pos.x + 1 > -3)
+	else if (key == GLFW_KEY_A)
 	{
-		modelMatrix = glm::translate(modelMatrix, vec3(-1, 0, 0));
+		mat4 tempModel = glm::translate(modelMatrix, vec3(-0.5, 0, 0));
+		vector<vec3> tempBounding;
 
-		//adjust bounding box
-		for (vec3 bound : boundingBox)
+		for (int i = 0; i != boundingBox.size(); i++)
 		{
-			bound = vec3(modelMatrix*vec4(bound, 1));
+			tempBounding.push_back(vec3(modelMatrix*vec4(boundingBox[i], 1)));
 		}
 
-		pos.x--;
-		cout << pos.x << endl;
+		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_LEFT);
+
+		if (!intersect)
+		{
+			modelMatrix = tempModel;
+
+			//adjust bounding box
+			for (vec3 bound : boundingBox)
+			{
+				bound = vec3(modelMatrix*vec4(bound, 1));
+			}
+
+			pos.y -= 1;
+		}
 	}
-	else if (key == GLFW_KEY_S && pos.y + 1 > -4)
+	else if (key == GLFW_KEY_S)
 	{
-		modelMatrix = glm::translate(modelMatrix, vec3(0, -1, 0));
+		mat4 tempModel = glm::translate(modelMatrix, vec3(0, -0.5, 0));
+		vector<vec3> tempBounding;
 
-		//adjust bounding box
-		for (vec3 bound : boundingBox)
+		for (int i = 0; i != boundingBox.size(); i++)
 		{
-			bound = vec3(modelMatrix*vec4(bound, 1));
+			tempBounding.push_back(vec3(modelMatrix*vec4(boundingBox[i], 1)));
 		}
 
-		pos.y -= 1;
-		cout << pos.y << endl;
+		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_DOWN);
+
+		if (!intersect)
+		{
+			modelMatrix = tempModel;
+
+			//adjust bounding box
+			for (vec3 bound : boundingBox)
+			{
+				bound = vec3(modelMatrix*vec4(bound, 1));
+			}
+
+			pos.y -= 1;
+		}
 	}
-	else if (key == GLFW_KEY_D && pos.x+1 < 4)
+	else if (key == GLFW_KEY_D)
 	{
-		modelMatrix = glm::translate(modelMatrix, vec3(1, 0, 0));
+		mat4 tempModel = glm::translate(modelMatrix, vec3(0.5, 0, 0));
+		vector<vec3> tempBounding;
 
-		//adjust bounding box
-		for (vec3 bound : boundingBox)
+		for (int i = 0; i != boundingBox.size(); i++)
 		{
-			bound = vec3(modelMatrix*vec4(bound, 1));
+			tempBounding.push_back(vec3(modelMatrix*vec4(boundingBox[i], 1)));
 		}
 
-		pos.x++;
-		cout << pos.x << endl;
+		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_RIGHT);
+
+		if (!intersect)
+		{
+			modelMatrix = tempModel;
+
+			//adjust bounding box
+			for (vec3 bound : boundingBox)
+			{
+				bound = vec3(modelMatrix*vec4(bound, 1));
+			}
+
+			pos.y -= 1;
+		}
 	}
 }
 
