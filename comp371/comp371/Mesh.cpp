@@ -283,37 +283,37 @@ void Mesh::handleMotion(int key)
 	else if (key == GLFW_KEY_X)
 	{
 		modelMatrix = glm::translate(modelMatrix, vec3(0, 0, 0));
-		modelMatrix = glm::rotate(modelMatrix, glm::radians(10.f), vec3(0, 1, 0));
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(5.f), vec3(0, 1, 0));
 		glm::translate(modelMatrix, vec3(-0, -0, -0));
 
-		for (vec3 bound : boundingBox)
+		for (int i = 0; i != boundingBox.size(); i++)
 		{
 			//bound = vec3(modelMatrix*vec4(bound, 1));
-			bound = glm::translate(mat4(), vec3(0, 0, 0))*vec4(bound, 1);
-			bound = glm::rotate(bound, glm::radians(10.f), vec3(0, 1, 0));
-			bound = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(bound, 1);
+			boundingBox[i] = glm::translate(mat4(), vec3(0, 0, 0))*vec4(boundingBox[i], 1);
+			boundingBox[i] = glm::rotate(boundingBox[i], glm::radians(5.f), vec3(0, 1, 0));
+			boundingBox[i] = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(boundingBox[i], 1);
 		}
 
 		sideMove = glm::translate(mat4(), vec3(0, 0, 0))*vec4(sideMove, 1);
-		sideMove = glm::rotate(sideMove, glm::radians(10.f), vec3(0, -1, 0));
+		sideMove = glm::rotate(sideMove, glm::radians(5.f), vec3(0, -1, 0));
 		sideMove = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(sideMove, 1);
 	}
 	else if (key == GLFW_KEY_Z)
 	{
 		modelMatrix = glm::translate(modelMatrix, vec3(0, 0, 0));
-		modelMatrix = glm::rotate(modelMatrix, glm::radians(10.f), vec3(0,-1,0));
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(5.f), vec3(0,-1,0));
 		glm::translate(modelMatrix, vec3(-0, -0, -0));
 
-		for (vec3 bound : boundingBox)
+		for (int i = 0; i != boundingBox.size(); i++)
 		{
 			//bound = vec3(modelMatrix*vec4(bound, 1));
-			bound = glm::translate(mat4(), vec3(0, 0, 0))*vec4(bound, 1);
-			bound = glm::rotate(bound, glm::radians(10.f), vec3(0, -1, 0));
-			bound = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(bound, 1);
+			boundingBox[i] = glm::translate(mat4(), vec3(0, 0, 0))*vec4(boundingBox[i], 1);
+			boundingBox[i] = glm::rotate(boundingBox[i], glm::radians(5.f), vec3(0, -1, 0));
+			boundingBox[i] = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(boundingBox[i], 1);
 		}
 
 		sideMove = glm::translate(mat4(), vec3(0, 0, 0))*vec4(sideMove,1);
-		sideMove = glm::rotate(sideMove, glm::radians(10.f), vec3(0, 1, 0));
+		sideMove = glm::rotate(sideMove, glm::radians(5.f), vec3(0, 1, 0));
 		sideMove = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(sideMove, 1);
 	}
 }
