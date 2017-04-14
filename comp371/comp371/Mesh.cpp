@@ -192,15 +192,23 @@ void Mesh::handleMotion(int key)
 
 		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_UP);
 
+		for (Mesh* obj : Game::getInstance()->getObjects())
+		{
+			if (obj == this) continue; //skip self
+
+			if (IntersectionHelper::BoxToBoxIntersection(this->getBound(), obj->getBound()))
+			{
+				intersect = true;
+				break;
+			}
+		}
+
 		if (!intersect)
 		{
 			modelMatrix = tempModel;
 
 			//adjust bounding box
-			for (vec3 bound : boundingBox)
-			{
-				bound = vec3(modelMatrix*vec4(bound, 1));
-			}
+			createBoundingBox();
 
 			pos.y += 1;
 		}
@@ -217,15 +225,23 @@ void Mesh::handleMotion(int key)
 
 		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_LEFT);
 
+		for (Mesh* obj : Game::getInstance()->getObjects())
+		{
+			if (obj == this) continue; //skip self
+
+			if (IntersectionHelper::BoxToBoxIntersection(this->getBound(), obj->getBound()))
+			{
+				intersect = true;
+				break;
+			}
+		}
+
 		if (!intersect)
 		{
 			modelMatrix = tempModel;
 
 			//adjust bounding box
-			for (vec3 bound : boundingBox)
-			{
-				bound = vec3(modelMatrix*vec4(bound, 1));
-			}
+			createBoundingBox();
 
 			pos.y -= 1;
 		}
@@ -242,15 +258,23 @@ void Mesh::handleMotion(int key)
 
 		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_DOWN);
 
+		for (Mesh* obj : Game::getInstance()->getObjects())
+		{
+			if (obj == this) continue; //skip self
+
+			if (IntersectionHelper::BoxToBoxIntersection(this->getBound(), obj->getBound()))
+			{
+				intersect = true;
+				break;
+			}
+		}
+
 		if (!intersect)
 		{
 			modelMatrix = tempModel;
 
 			//adjust bounding box
-			for (vec3 bound : boundingBox)
-			{
-				bound = vec3(modelMatrix*vec4(bound, 1));
-			}
+			createBoundingBox();
 
 			pos.y -= 1;
 		}
@@ -267,15 +291,23 @@ void Mesh::handleMotion(int key)
 
 		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_RIGHT);
 
+		for (Mesh* obj : Game::getInstance()->getObjects())
+		{
+			if (obj == this) continue; //skip self
+
+			if (IntersectionHelper::BoxToBoxIntersection(this->getBound(), obj->getBound()))
+			{
+				intersect = true;
+				break;
+			}
+		}
+
 		if (!intersect)
 		{
 			modelMatrix = tempModel;
 
 			//adjust bounding box
-			for (vec3 bound : boundingBox)
-			{
-				bound = vec3(modelMatrix*vec4(bound, 1));
-			}
+			createBoundingBox();
 
 			pos.y -= 1;
 		}
@@ -286,13 +318,7 @@ void Mesh::handleMotion(int key)
 		modelMatrix = glm::rotate(modelMatrix, glm::radians(5.f), vec3(0, 1, 0));
 		glm::translate(modelMatrix, vec3(-0, -0, -0));
 
-		for (int i = 0; i != boundingBox.size(); i++)
-		{
-			//bound = vec3(modelMatrix*vec4(bound, 1));
-			boundingBox[i] = glm::translate(mat4(), vec3(0, 0, 0))*vec4(boundingBox[i], 1);
-			boundingBox[i] = glm::rotate(boundingBox[i], glm::radians(5.f), vec3(0, 1, 0));
-			boundingBox[i] = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(boundingBox[i], 1);
-		}
+		createBoundingBox();
 
 		sideMove = glm::translate(mat4(), vec3(0, 0, 0))*vec4(sideMove, 1);
 		sideMove = glm::rotate(sideMove, glm::radians(5.f), vec3(0, -1, 0));
@@ -304,13 +330,7 @@ void Mesh::handleMotion(int key)
 		modelMatrix = glm::rotate(modelMatrix, glm::radians(5.f), vec3(0,-1,0));
 		glm::translate(modelMatrix, vec3(-0, -0, -0));
 
-		for (int i = 0; i != boundingBox.size(); i++)
-		{
-			//bound = vec3(modelMatrix*vec4(bound, 1));
-			boundingBox[i] = glm::translate(mat4(), vec3(0, 0, 0))*vec4(boundingBox[i], 1);
-			boundingBox[i] = glm::rotate(boundingBox[i], glm::radians(5.f), vec3(0, -1, 0));
-			boundingBox[i] = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(boundingBox[i], 1);
-		}
+		createBoundingBox();
 
 		sideMove = glm::translate(mat4(), vec3(0, 0, 0))*vec4(sideMove,1);
 		sideMove = glm::rotate(sideMove, glm::radians(5.f), vec3(0, 1, 0));
@@ -320,6 +340,11 @@ void Mesh::handleMotion(int key)
 
 void Mesh::createBoundingBox()
 {
+	if (!boundingBox.empty())
+	{
+		boundingBox = vector<vec3>(); //reset vector if not empty.
+	}
+
 	float xMax = -2;
 	float xMin = 2;
 	float yMax = -2;
@@ -329,9 +354,12 @@ void Mesh::createBoundingBox()
 
 	for (int i = 0; i != vertices.size(); i+=3)
 	{
-		float x = vertices[i];
-		float y = vertices[i+1];
-		float z = vertices[i+2];
+		vec3 point = vec3(vertices[i], vertices[i + 1], vertices[i + 2]);
+		vec3 pointTransformed = modelMatrix*vec4(point, 1);
+
+		float x = pointTransformed.x;
+		float y = pointTransformed.y;
+		float z = pointTransformed.z;
 
 		if (x > xMax) xMax = x;
 		else if (x < xMin) xMin = x;
@@ -344,14 +372,14 @@ void Mesh::createBoundingBox()
 	}
 
 	//Front face of bounding box.
-	boundingBox.push_back(vec3(xMax, yMax, zMax));
-	boundingBox.push_back(vec3(xMax, yMin, zMax));
-	boundingBox.push_back(vec3(xMin, yMin, zMax));
-	boundingBox.push_back(vec3(xMin, yMax, zMax));
+	boundingBox.push_back(vec4(xMax, yMax, zMax,1));
+	boundingBox.push_back(vec4(xMax, yMin, zMax, 1));
+	boundingBox.push_back(vec4(xMin, yMin, zMax,1));
+	boundingBox.push_back(vec4(xMin, yMax, zMax, 1));
 
 	//Back
-	boundingBox.push_back(vec3(xMax, yMax, zMin));
-	boundingBox.push_back(vec3(xMax, yMin, zMin));
-	boundingBox.push_back(vec3(xMin, yMin, zMin));
-	boundingBox.push_back(vec3(xMin, yMax, zMin));
+	boundingBox.push_back(vec4(xMax, yMax, zMin, 1));
+	boundingBox.push_back(vec4(xMax, yMin, zMin, 1));
+	boundingBox.push_back(vec4(xMin, yMin, zMin, 1));
+	boundingBox.push_back(vec4(xMin, yMax, zMin, 1));
 }

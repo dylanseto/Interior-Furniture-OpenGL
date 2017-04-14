@@ -51,6 +51,8 @@ public:
 	void nextAddedObject();
 	void addObject(vec3 pos);
 
+	vector<Mesh*> getObjects(){ return objects; }
+
 	int getNumObjects(){ return this->objects.size(); }
 
 	static Game* getInstance();
