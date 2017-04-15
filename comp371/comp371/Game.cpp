@@ -79,6 +79,9 @@ void Game::init()
 
 	terrain = new Terrain();
 	terrain->loadShaders();
+
+	if (this->getSelected()  != nullptr)
+		this->getSelected()->setSelected(true);
 }
 
 void Game::close()

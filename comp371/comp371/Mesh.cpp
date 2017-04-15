@@ -56,6 +56,7 @@ void Mesh::updateMatrix()
 	viewMatrixLoc = glGetUniformLocation(shaderProgram, "view_matrix");
 	projectiontMatrixLoc = glGetUniformLocation(shaderProgram, "projection_matrix");
 	modelMatrixLoc = glGetUniformLocation(shaderProgram, "model_matrix");
+	selectedLoc = glGetUniformLocation(shaderProgram, "selected");
 
 	//projectionMatrix = Game::getInstance()->getProjection();
 	//viewMatrix = Game::getInstance()->getView();
@@ -63,6 +64,7 @@ void Mesh::updateMatrix()
 	glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(Game::getInstance()->getProjection()));
 	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 	glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, glm::value_ptr(Game::getInstance()->getView()));
+	glUniform1i(selectedLoc, this->selected);
 }
 
 void Mesh::draw()

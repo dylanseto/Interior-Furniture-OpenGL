@@ -24,11 +24,12 @@ protected:
 
 	GLuint VAO, VBO, EBO;
 private:
-	bool hasPoints;
+	bool selected;
 
 	GLuint viewMatrixLoc;
 	GLuint projectiontMatrixLoc;
 	GLuint modelMatrixLoc;
+	GLuint selectedLoc;
 
 	glm::vec3 pos;
 
@@ -54,5 +55,9 @@ public:
 	void createBoundingBox();
 	void setTextureUnit(int tu){ this->textureUnit = tu; }
 	int getTextureUnit(){ return this->textureUnit; }
+	
+	void setSelected(bool sel){ this->selected = sel; };
+	bool getSelected(){ return this->selected; }
+
 	virtual void render() = 0;
 };

@@ -50,7 +50,11 @@ void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int a
 	}
 	else if (key == GLFW_KEY_TAB && action == GLFW_PRESS)
 	{
+		if (Game::getInstance()->getSelected() != nullptr)
+			Game::getInstance()->getSelected()->setSelected(false);
+
 		Game::getInstance()->moveSelction();
+		Game::getInstance()->getSelected()->setSelected(true);
 	}
 	else if (key == GLFW_KEY_LEFT_SHIFT && action == GLFW_PRESS)
 	{
