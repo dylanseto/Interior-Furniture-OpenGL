@@ -183,12 +183,7 @@ void Mesh::handleMotion(int key)
 	if (key == GLFW_KEY_W)
 	{
 		mat4 tempModel = glm::translate(modelMatrix, vec3(0, 0.5, 0));
-		vector<vec3> tempBounding;
-
-		for (int i = 0; i != boundingBox.size(); i++)
-		{
-			tempBounding.push_back(vec3(modelMatrix*vec4(boundingBox[i], 1)));
-		}
+		vector<vec3> tempBounding = IntersectionHelper::createBoundingBox(vertices, tempModel);
 
 		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_UP);
 
@@ -196,7 +191,7 @@ void Mesh::handleMotion(int key)
 		{
 			if (obj == this) continue; //skip self
 
-			if (IntersectionHelper::BoxToBoxIntersection(this->getBound(), obj->getBound()))
+			if (IntersectionHelper::BoxToBoxIntersection(tempBounding, obj->getBound()))
 			{
 				intersect = true;
 				break;
@@ -208,7 +203,7 @@ void Mesh::handleMotion(int key)
 			modelMatrix = tempModel;
 
 			//adjust bounding box
-			createBoundingBox();
+			this->boundingBox = tempBounding;
 
 			pos.y += 1;
 		}
@@ -216,12 +211,7 @@ void Mesh::handleMotion(int key)
 	else if (key == GLFW_KEY_A)
 	{
 		mat4 tempModel = glm::translate(modelMatrix, -sideMove);
-		vector<vec3> tempBounding;
-
-		for (int i = 0; i != boundingBox.size(); i++)
-		{
-			tempBounding.push_back(vec3(modelMatrix*vec4(boundingBox[i], 1)));
-		}
+		vector<vec3> tempBounding = IntersectionHelper::createBoundingBox(vertices, tempModel);
 
 		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_LEFT);
 
@@ -229,7 +219,7 @@ void Mesh::handleMotion(int key)
 		{
 			if (obj == this) continue; //skip self
 
-			if (IntersectionHelper::BoxToBoxIntersection(this->getBound(), obj->getBound()))
+			if (IntersectionHelper::BoxToBoxIntersection(tempBounding, obj->getBound()))
 			{
 				intersect = true;
 				break;
@@ -241,7 +231,7 @@ void Mesh::handleMotion(int key)
 			modelMatrix = tempModel;
 
 			//adjust bounding box
-			createBoundingBox();
+			this->boundingBox = tempBounding;
 
 			pos.y -= 1;
 		}
@@ -249,12 +239,7 @@ void Mesh::handleMotion(int key)
 	else if (key == GLFW_KEY_S)
 	{
 		mat4 tempModel = glm::translate(modelMatrix, vec3(0, -0.5, 0));
-		vector<vec3> tempBounding;
-
-		for (int i = 0; i != boundingBox.size(); i++)
-		{
-			tempBounding.push_back(vec3(modelMatrix*vec4(boundingBox[i], 1)));
-		}
+		vector<vec3> tempBounding = IntersectionHelper::createBoundingBox(vertices, tempModel);
 
 		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_DOWN);
 
@@ -262,7 +247,7 @@ void Mesh::handleMotion(int key)
 		{
 			if (obj == this) continue; //skip self
 
-			if (IntersectionHelper::BoxToBoxIntersection(this->getBound(), obj->getBound()))
+			if (IntersectionHelper::BoxToBoxIntersection(tempBounding, obj->getBound()))
 			{
 				intersect = true;
 				break;
@@ -274,7 +259,7 @@ void Mesh::handleMotion(int key)
 			modelMatrix = tempModel;
 
 			//adjust bounding box
-			createBoundingBox();
+			this->boundingBox = tempBounding;
 
 			pos.y -= 1;
 		}
@@ -282,12 +267,12 @@ void Mesh::handleMotion(int key)
 	else if (key == GLFW_KEY_D)
 	{
 		mat4 tempModel = glm::translate(modelMatrix, sideMove);
-		vector<vec3> tempBounding;
+		vector<vec3> tempBounding = IntersectionHelper::createBoundingBox(vertices, tempModel);
 
-		for (int i = 0; i != boundingBox.size(); i++)
+		/*for (int i = 0; i != boundingBox.size(); i++)
 		{
 			tempBounding.push_back(vec3(modelMatrix*vec4(boundingBox[i], 1)));
-		}
+		}*/
 
 		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_RIGHT);
 
@@ -295,7 +280,7 @@ void Mesh::handleMotion(int key)
 		{
 			if (obj == this) continue; //skip self
 
-			if (IntersectionHelper::BoxToBoxIntersection(this->getBound(), obj->getBound()))
+			if (IntersectionHelper::BoxToBoxIntersection(tempBounding, obj->getBound()))
 			{
 				intersect = true;
 				break;
@@ -307,7 +292,7 @@ void Mesh::handleMotion(int key)
 			modelMatrix = tempModel;
 
 			//adjust bounding box
-			createBoundingBox();
+			this->boundingBox = tempBounding;
 
 			pos.y -= 1;
 		}
@@ -342,7 +327,7 @@ void Mesh::createBoundingBox()
 {
 	if (!boundingBox.empty())
 	{
-		boundingBox = vector<vec3>(); //reset vector if not empty.
+		boundingBox.clear(); //reset vector if not empty.
 	}
 
 	float xMax = -2;

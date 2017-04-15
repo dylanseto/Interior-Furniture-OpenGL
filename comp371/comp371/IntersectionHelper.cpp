@@ -4,11 +4,13 @@ using namespace std;
 
 bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm::vec3> box2)
 {
+	cout << "box1: " << box1[2].x << endl;
 	cout << "box1: " << box1[0].x << endl;
 	cout << "box2: " << box2[2].x << endl;
-	cout << "box2: " << box2[3].x << endl;
-	cout << "box2: " << box2[6].x << endl;
-	cout << "box2: " << box2[7].x << endl;
+	cout << "box2: " << box2[0].x << endl;
+	cout << "box2: " << box2[1].x << endl;
+	cout << "box2: " << box2[4].x << endl;
+	cout << "box2: " << box2[5].x << endl;
 	/*
 	Condiitons for no overlap, either one of these:
 
@@ -33,49 +35,49 @@ bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm
 	*/
 
 	//Condition 1
-	if (box1[2].x < box2[0].x
-		&& box1[2].x  < box2[1].x
-		&& box1[2].x < box2[4].x
-		&& box1[2].x < box2[5].x
+	if (box1[0].x < box2[2].x
+		&& box1[0].x  < box2[3].x
+		&& box1[0].x < box2[6].x
+		&& box1[0].x < box2[7].x
 
-		&& box1[3].x < box2[0].x
-		&& box1[3].x < box2[1].x
-		&& box1[3].x < box2[4].x
-		&& box1[3].x < box2[5].x
+		&& box1[1].x < box2[2].x
+		&& box1[1].x < box2[3].x
+		&& box1[1].x < box2[6].x
+		&& box1[1].x < box2[7].x
 
-		&& box1[6].x < box2[0].x
-		&& box1[6].x < box2[1].x
-		&& box1[6].x < box2[4].x
-		&& box1[6].x < box2[5].x
+		&& box1[4].x < box2[2].x
+		&& box1[4].x < box2[3].x
+		&& box1[4].x < box2[6].x
+		&& box1[4].x < box2[7].x
 
-		&& box1[7].x < box2[0].x
-		&& box1[7].x < box2[1].x
-		&& box1[7].x < box2[4].x
-		&& box1[7].x < box2[5].x)
+		&& box1[5].x < box2[2].x
+		&& box1[5].x < box2[3].x
+		&& box1[5].x < box2[6].x
+		&& box1[5].x < box2[7].x)
 	{
 		cout << "con1" << endl;
 		return false;
 	}
 	//Condiiton 2
-	else if (box1[0].x > box2[2].x
-		&& box1[0].x > box2[3].x
-		&& box1[0].x > box2[6].x
-		&& box1[0].x > box2[7].x
+	else if (box1[2].x > box2[0].x
+		&& box1[2].x > box2[1].x
+		&& box1[2].x > box2[4].x
+		&& box1[2].x > box2[5].x
 
-		&& box1[1].x > box2[2].x
-		&& box1[1].x > box2[3].x
-		&& box1[1].x > box2[6].x
-		&& box1[1].x  > box2[7].x
+		&& box1[3].x > box2[0].x
+		&& box1[3].x > box2[1].x
+		&& box1[3].x > box2[4].x
+		&& box1[3].x > box2[5].x
 
-		&& box1[4].x > box2[2].x
-		&& box1[4].x > box2[3].x
-		&& box1[4].x  > box2[6].x
-		&& box1[4].x > box2[7].x
+		&& box1[6].x > box2[0].x
+		&& box1[6].x > box2[1].x
+		&& box1[6].x > box2[4].x
+		&& box1[6].x > box2[5].x
 
-		&& box1[5].x  > box2[2].x
-		&& box1[5].x  > box2[3].x
-		&& box1[5].x > box2[6].x
-		&& box1[5].x > box2[7].x)
+		&& box1[7].x  > box2[0].x
+		&& box1[7].x  > box2[1].x
+		&& box1[7].x > box2[4].x
+		&& box1[7].x > box2[5].x)
 	{
 		cout << "con2" << endl;
 		return false;
@@ -189,6 +191,7 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 {
 	if (action == PlayerActionType::ACTION_UP)
 	{
+		cout << box[0].y << endl;
 		//Ceiling collision
 		if (box[0].y >= room[0].y
 			|| box[3].y >= room[3].y
@@ -201,11 +204,14 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 	}
 	else if (action == PlayerActionType::ACTION_DOWN)
 	{
+		cout << box[1].y << endl;
+		cout << room[1].y << endl;
+		cout << "difference: " << (box[0].y - box[1].y) << endl;
 		//Floor collision
-		if (box[1].y + 4* (box[0].y - box[1].y) <= room[1].y
-			|| box[2].y + 4 * (box[0].y - box[1].y) <= room[2].y
-			|| box[5].y + 4 * (box[0].y - box[1].y) <= room[5].y
-			|| box[6].y + 4 * (box[0].y - box[1].y) <= room[6].y)
+		if (box[1].y + (box[0].y - box[1].y) <= room[1].y
+			|| box[2].y + (box[0].y - box[1].y) <= room[2].y
+			|| box[5].y + (box[0].y - box[1].y) <= room[5].y
+			|| box[6].y + (box[0].y - box[1].y) <= room[6].y)
 		{
 			return true;
 		}
@@ -213,10 +219,10 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 	}
 	else if (action == PlayerActionType::ACTION_LEFT)
 	{
-		if (box[2].x + 4*(box[0].x - box[2].x) <= room[2].x
-			|| box[3].x + 4 * (box[0].x - box[2].x) <= room[3].x
-			|| box[6].x + 4*(box[0].x - box[2].x) <= room[6].x
-			|| box[7].x + 4 * (box[0].x - box[2].x) <= room[7].x)
+		if (box[2].x + (box[0].x - box[2].x) <= room[2].x
+			|| box[3].x + (box[0].x - box[2].x) <= room[3].x
+			|| box[6].x + (box[0].x - box[2].x) <= room[6].x
+			|| box[7].x + (box[0].x - box[2].x) <= room[7].x)
 		{
 			return true;
 		}
@@ -224,10 +230,10 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 	}
 	else if (action == PlayerActionType::ACTION_RIGHT)
 	{
-		if (box[0].x - 3 * (box[0].x - box[2].x) >= room[0].x
-			|| box[1].x - 3 * (box[0].x - box[2].x) >= room[1].x
-			|| box[4].x - 3 * (box[0].x - box[2].x) >= room[4].x
-			|| box[5].x - 3 * (box[0].x - box[2].x) >= room[5].x)
+		if (box[0].x - (box[0].x - box[2].x) >= room[0].x
+			|| box[1].x - (box[0].x - box[2].x) >= room[1].x
+			|| box[4].x - (box[0].x - box[2].x) >= room[4].x
+			|| box[5].x - (box[0].x - box[2].x) >= room[5].x)
 		{
 			return true;
 		}
@@ -261,4 +267,49 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector<glm::vec3> room, vec3 &intersection)
 {
 	return RoomIntersectionType::I_NONE;
+}
+
+vector<vec3> IntersectionHelper::createBoundingBox(vector<float> vertices, mat4 modelMatrix)
+{
+	vector<vec3> boundingBox;
+
+	float xMax = -2;
+	float xMin = 2;
+	float yMax = -2;
+	float yMin = 2;
+	float zMax = -2;
+	float zMin = 2;
+
+	for (int i = 0; i != vertices.size(); i += 3)
+	{
+		vec3 point = vec3(vertices[i], vertices[i + 1], vertices[i + 2]);
+		vec3 pointTransformed = modelMatrix*vec4(point, 1);
+
+		float x = pointTransformed.x;
+		float y = pointTransformed.y;
+		float z = pointTransformed.z;
+
+		if (x > xMax) xMax = x;
+		else if (x < xMin) xMin = x;
+
+		if (y > yMax) yMax = y;
+		else if (y < yMin) yMin = y;
+
+		if (z > zMax) zMax = z;
+		else if (z < zMin) zMin = z;
+	}
+
+	//Front face of bounding box.
+	boundingBox.push_back(vec4(xMax, yMax, zMax, 1));
+	boundingBox.push_back(vec4(xMax, yMin, zMax, 1));
+	boundingBox.push_back(vec4(xMin, yMin, zMax, 1));
+	boundingBox.push_back(vec4(xMin, yMax, zMax, 1));
+
+	//Back
+	boundingBox.push_back(vec4(xMax, yMax, zMin, 1));
+	boundingBox.push_back(vec4(xMax, yMin, zMin, 1));
+	boundingBox.push_back(vec4(xMin, yMin, zMin, 1));
+	boundingBox.push_back(vec4(xMin, yMax, zMin, 1));
+
+	return boundingBox;
 }

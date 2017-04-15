@@ -28,4 +28,5 @@ namespace IntersectionHelper
 	bool BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm::vec3> box2);
 	bool BoxToRoomIntersection(vector<glm::vec3> box, vector<glm::vec3> room, PlayerActionType type);
 	RoomIntersectionType getRayRoomIntersection(vec3 ray, vector<glm::vec3> room, vec3 &intersection);
+	vector<vec3> createBoundingBox(vector<float> vertices, mat4 modelMatrix);
 }
