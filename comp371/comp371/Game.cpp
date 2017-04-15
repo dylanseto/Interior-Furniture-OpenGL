@@ -144,7 +144,7 @@ void Game::nextAddedObject()
 {
 	this->addedObject = (addedObject+1) % NUM_OBJ_TYPES;
 
-	cout << "[ADDED OBJECT] Switched to ";
+	cout << "[ADDED OBJECT SWITCH] Switched to ";
 	switch (addedObject)
 	{
 	case Mesh_Type::CHAIR:
