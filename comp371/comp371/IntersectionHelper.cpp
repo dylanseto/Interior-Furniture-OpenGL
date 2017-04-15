@@ -4,13 +4,6 @@ using namespace std;
 
 bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm::vec3> box2)
 {
-	cout << "box1: " << box1[2].x << endl;
-	cout << "box1: " << box1[0].x << endl;
-	cout << "box2: " << box2[2].x << endl;
-	cout << "box2: " << box2[0].x << endl;
-	cout << "box2: " << box2[1].x << endl;
-	cout << "box2: " << box2[4].x << endl;
-	cout << "box2: " << box2[5].x << endl;
 	/*
 	Condiitons for no overlap, either one of these:
 
@@ -55,7 +48,6 @@ bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm
 		&& box1[5].x < box2[6].x
 		&& box1[5].x < box2[7].x)
 	{
-		cout << "con1" << endl;
 		return false;
 	}
 	//Condiiton 2
@@ -79,7 +71,6 @@ bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm
 		&& box1[7].x > box2[4].x
 		&& box1[7].x > box2[5].x)
 	{
-		cout << "con2" << endl;
 		return false;
 	}
 	//Condiiton 3
@@ -104,7 +95,6 @@ bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm
 		&& box1[7].y < box2[5].y
 		&& box1[7].y < box2[6].y)
 	{
-		cout << "con3" << endl;
 		return false;
 	}
 	//Condiiton 4
@@ -128,7 +118,6 @@ bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm
 		&& box1[6].y > box2[4].y
 		&& box1[6].y > box2[7].y)
 	{
-		cout << "con4" << endl;
 		return false;
 	}
 	//Condition 5
@@ -152,7 +141,6 @@ bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm
 		&& box1[3].z < box2[6].z
 		&& box1[3].z < box2[7].z)
 	{
-		cout << "con5" << endl;
 		return false;
 	}
 	//Condition 6
@@ -176,13 +164,11 @@ bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm
 		&& box1[7].z > box2[2].z
 		&& box1[7].z > box2[3].z)
 	{
-		cout << "con6" << endl;
 		return false;
 	}
 	//Non of thes conditions, therefore intersects.
 	else
 	{
-		cout << "wtf" << endl;
 		return true;
 	}
 }
@@ -204,9 +190,6 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 	}
 	else if (action == PlayerActionType::ACTION_DOWN)
 	{
-		cout << box[1].y << endl;
-		cout << room[1].y << endl;
-		cout << "difference: " << (box[0].y - box[1].y) << endl;
 		//Floor collision
 		if (box[1].y + (box[0].y - box[1].y) <= room[1].y
 			|| box[2].y + (box[0].y - box[1].y) <= room[2].y
