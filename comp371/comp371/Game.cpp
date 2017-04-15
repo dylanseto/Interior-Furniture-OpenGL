@@ -179,6 +179,10 @@ void Game::addObject(vec3 pos)
 
 	newObject->loadShaders();
 	objects.push_back(newObject);
+
+	this->getSelected()->setSelected(false);
+	this->selectedIndex = objects.size() - 1; //Make newly added object selected.
+	this->getSelected()->setSelected(true);
 }
 
 

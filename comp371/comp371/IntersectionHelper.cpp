@@ -266,6 +266,19 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 
 RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector<glm::vec3> room, vec3 &intersection)
 {
+	// Ceiling
+	vec3 CeilingNorm;
+	// Wall 1
+	vec3 Wall1Norm;
+	// Wall 2
+	vec3 Wall2Norm;
+	// Wall 3
+	vec3 Wall3Norm;
+	// Wall 4
+	vec3 Wall4Norm;
+	// Floor
+	vec3 FloorNorm;
+
 	return RoomIntersectionType::I_NONE;
 }
 
