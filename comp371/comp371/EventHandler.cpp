@@ -101,7 +101,24 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 
 		vec3 intersection;
 		IntersectionHelper::getRayRoomIntersection(ray_wor, Game::getInstance()->getTerrain()->getBound(), intersection);
-		//Game::getInstance()->addObject(ray_wor); // temp.
+
+		bool hasObject = false;
+		for (Mesh* obj : Game::getInstance()->getObjects())
+		{
+			vec3 inter;
+			if (IntersectionHelper::rayBoxIntersection(ray_wor, obj->getBound(), inter))
+			{
+				hasObject = true;
+				break;
+			}
+		}
+
+		if (!hasObject)
+		{
+			cout << intersection.x << " " << intersection.y << " " << intersection.z << endl;
+			Game::getInstance()->addObject(intersection);
+		}
+
 		EventHandler::GetPosition = false;
 	}
 }

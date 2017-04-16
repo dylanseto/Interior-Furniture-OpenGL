@@ -163,7 +163,7 @@ void Game::addObject(vec3 pos)
 	switch (addedObject)
 	{
 	case Mesh_Type::CHAIR:
-		newObject = new Chair();
+		newObject = new Chair(pos);
 		cout << "[ADDED] Added new chair to the scene ";
 		break;
 	case Mesh_Type::TOILET:

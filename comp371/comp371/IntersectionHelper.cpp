@@ -352,8 +352,8 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 		}
 	}
 	// Floor
-	v1 = room[2] - room[0];
-	v2 = room[5] - room[0];
+	v1 = room[2] - room[1];
+	v2 = room[5] - room[1];
 	vec3 FloorNor = glm::cross(v2, v1);
 
 	vec3 floorIntersection;
@@ -361,19 +361,163 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 
 	if (planeInter)
 	{
+		//cout << "floor pos: " << floorIntersection.x << " " << floorIntersection.y << " " << floorIntersection.z << endl;
 		//Check if intersection point is in rectangle, if it is, return ceiling type.
 		if (floorIntersection.x < 1 && floorIntersection.x > -1
 			&& floorIntersection.y == -1
 			&& floorIntersection.z < 1 && floorIntersection.z > -1)
 		{
+			cout << "Floor" << endl;
 			intersection = floorIntersection;
+			cout << intersection.x << " " << intersection.y << " " << intersection.z << endl;
 			RoomIntersectionType::I_FLOOR;
+		}
+		else
+		{
+			cout << (floorIntersection.x < 1) << endl;
+			cout << (floorIntersection.x > -1) << endl;
+			cout << (floorIntersection.z < 1) << endl;
+			cout << (floorIntersection.z > -1) << endl;
+			cout << (floorIntersection.y == -1) << endl;
+			cout << (floorIntersection.y) << endl;
 		}
 	}
 
 	// Made it this far, that means there's no intersection with any side of the room? WEIRD
 	// This Should never happen, it's only here for completeness.
 	return RoomIntersectionType::I_NONE; 
+}
+
+bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec3 &intersection)
+{
+	float maxX = box[0].x;
+	float minX = box[2].x;
+	float maxY = box[0].y;
+	float minY = box[1].y;
+	float maxZ = box[0].z;
+	float minZ = box[5].z;
+
+	// Top
+	vec3 v1 = box[3] - box[0];
+	vec3 v2 = box[4] - box[0];
+	vec3 TopNor = glm::cross(v1, v2);
+
+	//Plane intersection
+	vec3 topIntersection;
+	bool planeInter = planeIntersection(ray, TopNor, box[4], topIntersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (topIntersection.x < maxX && topIntersection.x > minY
+			&& topIntersection.y == maxY
+			&& topIntersection.z < maxZ && topIntersection.z > minZ)
+		{
+			intersection = topIntersection;
+			return true;
+		}
+	}
+
+
+	// front
+	v1 = box[1] - box[0];
+	v2 = box[2] - box[0];
+	vec3 frontNor = glm::cross(v1, v2);
+
+
+	vec3 frontIntersection;
+	planeInter = planeIntersection(ray, frontNor, box[2], frontIntersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (frontIntersection.x < maxX && frontIntersection.x > minX
+			&& frontIntersection.y < maxY && frontIntersection.y > minY
+			&& frontIntersection.z == maxZ)
+		{
+			intersection = frontIntersection;
+			return true;
+		}
+	}
+	// back
+	v1 = box[5] - box[4];
+	v2 = box[6] - box[4];
+	vec3 backNor = glm::cross(v1, v2);
+
+
+	vec3 backIntersection;
+	planeInter = planeIntersection(ray, backNor, box[4], backIntersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (backIntersection.x < maxX && backIntersection.x > minX
+			&& backIntersection.y < maxY && backIntersection.y > minY
+			&& backIntersection.z == minY)
+		{
+			intersection = backIntersection;
+			return true;
+		}
+	}
+	// Wall 3 - right
+	v1 = box[0] - box[4];
+	v2 = box[1] - box[4];
+	vec3 rightNor = glm::cross(v1, v2);
+
+	vec3 rightIntersection;
+	planeInter = planeIntersection(ray, rightNor, box[4], rightIntersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (rightIntersection.x == maxX
+			&& rightIntersection.y < maxY && rightIntersection.y > minY
+			&& rightIntersection.z < maxZ && rightIntersection.z > minZ)
+		{
+			intersection = rightIntersection;
+			return true;
+		}
+	}
+	// Wall 4 - left
+	v1 = box[2] - box[6];
+	v2 = box[3] - box[6];
+	vec3 leftNor = glm::cross(v1, v2);
+
+	vec3 leftIntersection;
+	planeInter = planeIntersection(ray, leftNor, box[6], leftIntersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (leftIntersection.x == minX
+			&& leftIntersection.y < maxY && leftIntersection.y > minY
+			&& leftIntersection.z < maxZ && leftIntersection.z > minZ)
+		{
+			intersection = leftIntersection;
+			return true;
+		}
+	}
+	// Floor
+	v1 = box[2] - box[1];
+	v2 = box[5] - box[1];
+	vec3 bottomNor = glm::cross(v2, v1);
+
+	vec3 bottomIntersection;
+	planeInter = planeIntersection(ray, bottomNor, box[2], bottomIntersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (bottomIntersection.x < maxX && bottomIntersection.x > minX
+			&& bottomIntersection.y == minY
+			&& bottomIntersection.z < maxZ && bottomIntersection.z > minZ)
+		{
+			intersection = bottomIntersection;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 vector<vec3> IntersectionHelper::createBoundingBox(vector<float> vertices, mat4 modelMatrix)
