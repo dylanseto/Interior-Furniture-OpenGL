@@ -30,4 +30,5 @@ namespace IntersectionHelper
 	RoomIntersectionType getRayRoomIntersection(vec3 ray, vector<glm::vec3> room, vec3 &intersection);
 	bool rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec3 &intersection);
 	vector<vec3> createBoundingBox(vector<float> vertices, mat4 modelMatrix);
+	bool planeIntersection(vec3 ray, vec3 nor, vec3 pos, vec3 &intersection);
 }

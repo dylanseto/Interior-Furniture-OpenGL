@@ -1,6 +1,8 @@
 #include "IntersectionHelper.h"
 #include <iostream>
+#include <glm.hpp>
 using namespace std;
+using namespace glm;
 
 bool IntersectionHelper::BoxToBoxIntersection(vector<glm::vec3> box1, vector<glm::vec3> box2)
 {
@@ -250,19 +252,128 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector<glm::vec3> room, vec3 &intersection)
 {
 	// Ceiling
-	vec3 CeilingNorm;
-	// Wall 1
-	vec3 Wall1Norm;
-	// Wall 2
-	vec3 Wall2Norm;
-	// Wall 3
-	vec3 Wall3Norm;
-	// Wall 4
-	vec3 Wall4Norm;
-	// Floor
-	vec3 FloorNorm;
+	vec3 v1 = room[3] - room[0];
+	vec3 v2 = room[4] - room[0];
+	vec3 CeilingNor = glm::cross(v1, v2);
 
-	return RoomIntersectionType::I_NONE;
+		//Plane intersection
+	vec3 ceilingIntersection;
+	bool planeInter = planeIntersection(ray, CeilingNor, room[4], ceilingIntersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (ceilingIntersection.x < 1 && ceilingIntersection.x > -1
+			&& ceilingIntersection.y == 1
+			&& ceilingIntersection.z < 1 && ceilingIntersection.z > -1)
+		{
+			intersection = ceilingIntersection;
+			RoomIntersectionType::I_CEILING;
+		}
+	}
+
+
+	// Wall 1 - front
+	v1 = room[1] - room[0];
+	v2 = room[2] - room[0];
+	vec3 Wall1Nor = glm::cross(v1, v2);
+
+
+	vec3 wall1Intersection;
+	planeInter = planeIntersection(ray, Wall1Nor, room[2], wall1Intersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (wall1Intersection.x < 1 && wall1Intersection.x > -1
+			&& wall1Intersection.y < 1 && wall1Intersection.y > -1
+			&& wall1Intersection.z == 1)
+		{
+			intersection = wall1Intersection;
+			RoomIntersectionType::I_WALL;
+		}
+	}
+	// Wall 2 - back
+	v1 = room[5] - room[4];
+	v2 = room[6] - room[4];
+	vec3 Wall2Nor = glm::cross(v1, v2);
+
+
+	vec3 wall2Intersection;
+	planeInter = planeIntersection(ray, Wall2Nor, room[4], wall2Intersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (wall2Intersection.x < 1 && wall2Intersection.x > -1
+			&& wall2Intersection.y < 1 && wall2Intersection.y > -1
+			&& wall2Intersection.z == -1)
+		{
+			intersection = wall2Intersection;
+			RoomIntersectionType::I_WALL;
+		}
+	}
+	// Wall 3 - right
+	v1 = room[0] - room[4];
+	v2 = room[1] - room[4];
+	vec3 Wall3Nor = glm::cross(v1, v2);
+
+	vec3 wall3Intersection;
+	planeInter = planeIntersection(ray, Wall3Nor, room[4], wall3Intersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (wall3Intersection.x == 1
+			&& wall3Intersection.y < 1 && wall3Intersection.y > -1
+			&& wall3Intersection.z < 1 && wall3Intersection.z > -1)
+		{
+			intersection = wall3Intersection;
+			RoomIntersectionType::I_WALL;
+		}
+	}
+	// Wall 4 - left
+	v1 = room[2] - room[6];
+	v2 = room[3] - room[6];
+	vec3 Wall4Nor = glm::cross(v1, v2);
+
+	vec3 wall4Intersection;
+	planeInter = planeIntersection(ray, Wall4Nor, room[6], wall4Intersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (wall4Intersection.x == -1
+			&& wall4Intersection.y < 1 && wall4Intersection.y > -1
+			&& wall4Intersection.z < 1 && wall4Intersection.z > -1)
+		{
+			intersection = wall4Intersection;
+			RoomIntersectionType::I_WALL;
+		}
+	}
+	// Floor
+	v1 = room[2] - room[0];
+	v2 = room[5] - room[0];
+	vec3 FloorNor = glm::cross(v2, v1);
+
+	vec3 floorIntersection;
+	planeInter = planeIntersection(ray, FloorNor, room[2], floorIntersection);
+
+	if (planeInter)
+	{
+		//Check if intersection point is in rectangle, if it is, return ceiling type.
+		if (floorIntersection.x < 1 && floorIntersection.x > -1
+			&& floorIntersection.y == -1
+			&& floorIntersection.z < 1 && floorIntersection.z > -1)
+		{
+			intersection = floorIntersection;
+			RoomIntersectionType::I_FLOOR;
+		}
+	}
+
+	// Made it this far, that means there's no intersection with any side of the room? WEIRD
+	// This Should never happen, it's only here for completeness.
+	return RoomIntersectionType::I_NONE; 
 }
 
 vector<vec3> IntersectionHelper::createBoundingBox(vector<float> vertices, mat4 modelMatrix)
@@ -308,4 +419,30 @@ vector<vec3> IntersectionHelper::createBoundingBox(vector<float> vertices, mat4 
 	boundingBox.push_back(vec4(xMin, yMax, zMin, 1));
 
 	return boundingBox;
+}
+
+bool IntersectionHelper::planeIntersection(vec3 ray, vec3 nor, vec3 pos, vec3 &intersection)
+{
+	if (dot(ray, pos) != 0) //Not parallel so they'll intersect.
+	{
+		vec3 intersectionPoint;
+		float m = (nor.x*(pos.x) + nor.y*(pos.y) + nor.z*(pos.z))
+			/ (ray.x*nor.x + ray.y*nor.y + ray.z*nor.z);
+
+		intersectionPoint.x = ray.x*m;
+		intersectionPoint.y = ray.y*m;
+		intersectionPoint.z = ray.z*m;
+
+
+		if (m < 0) // Intersection is behind Camera
+		{
+			return -1;
+		}
+
+		intersection = intersectionPoint;
+
+		return true;
+	}
+
+	return false;
 }

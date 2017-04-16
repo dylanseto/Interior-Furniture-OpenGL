@@ -1,12 +1,12 @@
 #include "EventHandler.h"
+#include "Game.h"
+#include "IntersectionHelper.h"
+
+#include <iostream>
 #include <glm.hpp>
 #include "..\glm\gtc\matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 #include "..\glm\gtx\rotate_vector.hpp"
-#include "Game.h"
-
-#include <iostream>
-#include "Game.h"
 
 #include <thread>
 
@@ -98,7 +98,10 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 		//TODO: find closest edge of room (floor, wall, ceiling)
 		//TODO: insersection with other objects
 		//Add Object
-		Game::getInstance()->addObject(ray_wor); // temp.
+
+		vec3 intersection;
+		IntersectionHelper::getRayRoomIntersection(ray_wor, Game::getInstance()->getTerrain()->getBound(), intersection);
+		//Game::getInstance()->addObject(ray_wor); // temp.
 		EventHandler::GetPosition = false;
 	}
 }
