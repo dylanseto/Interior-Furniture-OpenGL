@@ -167,11 +167,11 @@ void Game::addObject(vec3 pos)
 		cout << "[ADDED] Added new chair to the scene ";
 		break;
 	case Mesh_Type::TOILET:
-		newObject = new Toilet();
+		newObject = new Toilet(pos);
 		cout << "[ADDED] Added new toilet to the scene ";
 		break;
 	default:
-		newObject = new Toilet();
+		newObject = new Toilet(pos);
 		cout << "[ADDED] Added new toilet to the scene (because we had no idea what you wanted) ";
 		break;
 	}

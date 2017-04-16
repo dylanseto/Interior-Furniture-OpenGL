@@ -25,6 +25,25 @@ Toilet::Toilet() : Mesh()
 	}
 }
 
+Toilet::Toilet(glm::vec3 pos) : Mesh()
+{
+	this->type = Mesh_Type::TOILET;
+
+	if (MeshCreator::loadOBJ("toilet.obj", this->vertices, this->indices))
+	{
+		cout << "[LOAD] Loaded Chair." << endl;
+		this->updateBuffer();
+
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.4, 0.4, 0.4));
+		modelMatrix = glm::translate(modelMatrix, (4.0f*pos));
+
+		this->updateMatrix();
+
+		createBoundingBox();
+		MeshCreator::loadObjectTexture(this);
+	}
+}
+
 void Toilet::render()
 {
 	glUseProgram(shaderProgram);

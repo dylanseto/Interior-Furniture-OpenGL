@@ -95,8 +95,6 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 
 		cout << "(" << ray_wor.x << "," << ray_wor.y << "," << ray_wor.z << ")" << endl;
 
-		//TODO: find closest edge of room (floor, wall, ceiling)
-		//TODO: insersection with other objects
 		//Add Object
 
 		vec3 intersection;

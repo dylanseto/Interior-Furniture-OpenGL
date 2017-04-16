@@ -240,6 +240,7 @@ void Mesh::handleMotion(int key)
 	}
 	else if (key == GLFW_KEY_S)
 	{
+		cout << "down" << endl;
 		mat4 tempModel = glm::translate(modelMatrix, vec3(0, -0.5, 0));
 		vector<vec3> tempBounding = IntersectionHelper::createBoundingBox(vertices, tempModel);
 
