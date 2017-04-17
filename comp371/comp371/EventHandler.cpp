@@ -14,8 +14,6 @@ bool EventHandler::GetPosition = false;
 
 void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	//cout << key << endl;
-
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
 		glfwSetWindowShouldClose(window, GL_TRUE);
@@ -93,8 +91,6 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 		vec3 ray_wor = vec3(inverse(Game::getInstance()->getView()) * ray_eye);
 		ray_wor = normalize(ray_wor);
 
-		cout << "(" << ray_wor.x << "," << ray_wor.y << "," << ray_wor.z << ")" << endl;
-
 		//Add Object
 
 		vec3 intersection;
@@ -113,7 +109,6 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 
 		if (!hasObject)
 		{
-			cout << intersection.x << " " << intersection.y << " " << intersection.z << endl;
 			Game::getInstance()->addObject(intersection);
 		}
 

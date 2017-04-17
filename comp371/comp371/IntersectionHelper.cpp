@@ -179,7 +179,6 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 {
 	if (action == PlayerActionType::ACTION_UP)
 	{
-		cout << box[0].y << endl;
 		//Ceiling collision
 		if (box[0].y >= room[0].y
 			|| box[3].y >= room[3].y
@@ -361,25 +360,13 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 
 	if (planeInter)
 	{
-		cout << "floor pos: " << floorIntersection.x << " " << floorIntersection.y << " " << floorIntersection.z << endl;
 		//Check if intersection point is in rectangle, if it is, return ceiling type.
 		if (floorIntersection.x < 1 && floorIntersection.x > -1
 			&& glm::floor(floorIntersection.y) == -1.0f
 			&& floorIntersection.z < 1 && floorIntersection.z > -1)
 		{
-			cout << "Floor" << endl;
 			intersection = floorIntersection;
-			cout << intersection.x << " " << intersection.y << " " << intersection.z << endl;
 			RoomIntersectionType::I_FLOOR;
-		}
-		else
-		{
-			cout << (floorIntersection.x < 1) << endl;
-			cout << (floorIntersection.x > -1) << endl;
-			cout << (floorIntersection.z < 1) << endl;
-			cout << (floorIntersection.z > -1) << endl;
-			cout << (glm::floor(floorIntersection.y) == -1.0f) << endl;
-			cout << (floorIntersection.y) << endl;
 		}
 	}
 
