@@ -30,10 +30,10 @@ void main()
 	vec3 resultantColour = (ambient_contribution + diffuse_contribution) * objColour;
 	if (selected)
 	{
-		color = vec4(resultantColour, 1.0f);
+		color = vec4(resultantColour, 1.0f) * vec4(1.5, 1.5, 1.5, 1);
 	}
 	else
 	{
-		color = vec4(resultantColour, 1.0f) * vec4(1.5, 1.5, 1.5, 1);
+		color = vec4(resultantColour, 1.0f);
 	}
 } 
