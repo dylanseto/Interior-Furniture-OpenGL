@@ -1,4 +1,5 @@
 #include "Toilet.h"
+#include "IntersectionHelper.h"
 #include "MeshCreator.h"
 #include "..\glm\gtc\matrix_transform.hpp"
 #include "..\glm\gtx\rotate_vector.hpp"
@@ -21,6 +22,7 @@ Toilet::Toilet() : Mesh()
 		this->updateMatrix();
 
 		createBoundingBox();
+		//this->boundingBox = IntersectionHelper::createBoundingBox(this->vertices, this->modelMatrix);
 		MeshCreator::loadObjectTexture(this);
 	}
 }

@@ -19,7 +19,7 @@ void main()
 	vec3 ambient_contribution = ambientStrength * lightColour;
 
 	//diffuse lighting
-	vec3 light_position = vec3(0.0f, 0.0f, 2.0f); //world coords
+	vec3 light_position = vec3(0.0f, 1.0f, 2.0f); //world coords
 
 	vec3 norm = normalize(outNormal);
 
