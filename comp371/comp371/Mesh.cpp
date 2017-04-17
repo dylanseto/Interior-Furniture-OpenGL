@@ -184,10 +184,28 @@ void Mesh::handleMotion(int key)
 {
 	if (key == GLFW_KEY_W)
 	{
-		mat4 tempModel = glm::translate(modelMatrix, vec3(0, 0.5, 0));
+		mat4 tempModel;
+		bool up = false;
+		if (this->getType() == Mesh_Type::CHAIR || this->getType() == Mesh_Type::TOILET)
+		{
+			tempModel = glm::translate(modelMatrix, vec3(0, 0, -0.5));
+		}
+		else
+		{
+			tempModel = glm::translate(modelMatrix, vec3(0, 0.5, 0));
+			up = true;
+		}
 		vector<vec3> tempBounding = IntersectionHelper::createBoundingBox(vertices, tempModel);
 
-		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_UP);
+		bool intersect = false;
+		if (up)
+		{
+			intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_UP);
+		}
+		else
+		{
+			intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_FORWARD);
+		}
 
 		for (Mesh* obj : Game::getInstance()->getObjects())
 		{
@@ -240,11 +258,29 @@ void Mesh::handleMotion(int key)
 	}
 	else if (key == GLFW_KEY_S)
 	{
-		cout << "down" << endl;
-		mat4 tempModel = glm::translate(modelMatrix, vec3(0, -0.5, 0));
+		bool up = false;
+		mat4 tempModel;
+		if (this->getType() == Mesh_Type::CHAIR || this->getType() == Mesh_Type::TOILET)
+		{
+			tempModel = glm::translate(modelMatrix, vec3(0, 0, 0.5));
+		}
+		else
+		{
+			tempModel = glm::translate(modelMatrix, vec3(0, -0.5, 0));
+			up = true;
+		}
+
 		vector<vec3> tempBounding = IntersectionHelper::createBoundingBox(vertices, tempModel);
 
-		bool intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_DOWN);
+		bool intersect = false;
+		if (up)
+		{
+			intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_UP);
+		}
+		else
+		{
+			intersect = IntersectionHelper::BoxToRoomIntersection(tempBounding, Game::getInstance()->getTerrain()->getBound(), PlayerActionType::ACTION_BACKWARD);
+		}
 
 		for (Mesh* obj : Game::getInstance()->getObjects())
 		{

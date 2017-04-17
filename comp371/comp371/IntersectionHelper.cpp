@@ -224,23 +224,23 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 		}
 		return false;
 	}
-	else if (action == PlayerActionType::ACTION_FORWARD)
+	else if (action == PlayerActionType::ACTION_BACKWARD)
 	{
-		if (box[0].z - (box[0].x - box[4].x) >= room[0].z
-			|| box[1].z - (box[0].x - box[4].x) >= room[1].z
-			|| box[2].z - (box[0].x - box[4].x) >= room[2].z
-			|| box[3].z - (box[0].x - box[4].x) >= room[3].z)
+		if (box[4].z >= room[0].z
+			|| box[5].z >= room[1].z
+			|| box[6].z >= room[2].z
+			|| box[7].z >= room[3].z)
 		{
 			return true;
 		}
 		return false;
 	}
-	else if (action == PlayerActionType::ACTION_BACKWARD)
+	else if (action == PlayerActionType::ACTION_FORWARD)
 	{
-		if (box[4].z + (box[0].x - box[4].x) >= room[4].z
-			|| box[5].z + (box[0].x - box[4].x) >= room[5].z
-			|| box[6].z + (box[0].x - box[4].x) >= room[6].z
-			|| box[7].z + (box[0].x - box[4].x) >= room[7].z)
+		if (box[0].z <= room[4].z
+			|| box[1].z <= room[5].z
+			|| box[2].z <= room[6].z
+			|| box[3].z <= room[7].z)
 		{
 			return true;
 		}
@@ -582,7 +582,7 @@ bool IntersectionHelper::planeIntersection(vec3 ray, vec3 nor, vec3 pos, vec3 &i
 
 		if (m < 0) // Intersection is behind Camera
 		{
-			return -1;
+			return false;
 		}
 
 		intersection = intersectionPoint;

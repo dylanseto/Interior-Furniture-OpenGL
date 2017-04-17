@@ -62,21 +62,6 @@ void Game::init()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	//TODO: Have mesh creator functions.
-
-	//this->mesh = new Mesh();
-	//this->mesh->loadShaders();
-	Mesh* toilet = new Toilet();
-	toilet->loadShaders();
-	toilet->render();
-
-	Mesh* chair = new Chair();
-	chair->loadShaders();
-	chair->render();
-
-	//objects.push_back(toilet);
-	objects.push_back(chair);
-
 	terrain = new Terrain();
 	terrain->loadShaders();
 
