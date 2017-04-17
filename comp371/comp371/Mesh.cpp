@@ -82,7 +82,7 @@ void Mesh::draw()
 			GL_TRIANGLES,      // mode
 			indices.size(),    // count
 			GL_UNSIGNED_INT,   // type
-			(void*)1           // element array buffer offset
+			(void*)0           // element array buffer offset
 			);
 	}
 	glBindVertexArray(0);
