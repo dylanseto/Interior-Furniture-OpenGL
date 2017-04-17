@@ -15,4 +15,12 @@ other items or through walls, floors, ceiling etc. The functionality to interact
 repository and to position/orient it at a desired location is mandatory. Absence of this functionality will result in
 a reduced score for the project
  
-3D models courtesy of http://tf3dm.com and are all freely available.
+3D models courtesy of https://free3d.com and are all freely available.
+
+Armchair: https://free3d.com/3d-model/armchair-39723.html
+Toilet: https://free3d.com/3d-model/toilet-lavatory-loo-38457.html
+
+Textures From:
+http://www.lughertexture.com/floor-hires-textures/medieval-pavement-texture-download
+https://www.sketchuptextureclub.com/textures/architecture/wood/wood-panels
+https://parmardhaval.files.wordpress.com/2012/03/stone_wall2.jpg
