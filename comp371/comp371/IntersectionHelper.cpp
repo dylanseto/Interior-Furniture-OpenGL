@@ -397,6 +397,8 @@ bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec
 	float maxZ = box[0].z;
 	float minZ = box[5].z;
 
+	float yDif = minY + 1;
+
 	// Top
 	vec3 v1 = box[3] - box[0];
 	vec3 v2 = box[4] - box[0];
@@ -409,9 +411,9 @@ bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec
 	if (planeInter)
 	{
 		//Check if intersection point is in rectangle, if it is, return ceiling type.
-		if (topIntersection.x < maxX && topIntersection.x > minY
-			&& glm::floor(topIntersection.y) == maxY
-			&& topIntersection.z < maxZ && topIntersection.z > minZ)
+		if (topIntersection.x <= maxX && topIntersection.x >= minY
+			&& (glm::ceil(topIntersection.y) == glm::ceil(maxY))
+			&& topIntersection.z <= maxZ && topIntersection.z >= minZ)
 		{
 			intersection = topIntersection;
 			return true;
@@ -433,7 +435,7 @@ bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec
 		//Check if intersection point is in rectangle, if it is, return ceiling type.
 		if (frontIntersection.x < maxX && frontIntersection.x > minX
 			&& frontIntersection.y < maxY && frontIntersection.y > minY
-			&& glm::floor(frontIntersection.z) == maxZ)
+			&& (glm::ceil(frontIntersection.z) == glm::ceil(maxZ)))
 		{
 			intersection = frontIntersection;
 			return true;
@@ -453,7 +455,7 @@ bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec
 		//Check if intersection point is in rectangle, if it is, return ceiling type.
 		if (backIntersection.x < maxX && backIntersection.x > minX
 			&& backIntersection.y < maxY && backIntersection.y > minY
-			&& glm::floor(backIntersection.z) == minY)
+			&& (glm::ceil(backIntersection.z) == glm::ceil(minZ)))
 		{
 			intersection = backIntersection;
 			return true;
@@ -470,7 +472,7 @@ bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec
 	if (planeInter)
 	{
 		//Check if intersection point is in rectangle, if it is, return ceiling type.
-		if (glm::floor(rightIntersection.x) == maxX
+		if ((glm::ceil(rightIntersection.x) == glm::ceil(maxX))
 			&& rightIntersection.y < maxY && rightIntersection.y > minY
 			&& rightIntersection.z < maxZ && rightIntersection.z > minZ)
 		{
@@ -489,7 +491,7 @@ bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec
 	if (planeInter)
 	{
 		//Check if intersection point is in rectangle, if it is, return ceiling type.
-		if (glm::floor(leftIntersection.x) == minX
+		if ((glm::ceil(leftIntersection.x) == glm::ceil(minX))
 			&& leftIntersection.y < maxY && leftIntersection.y > minY
 			&& leftIntersection.z < maxZ && leftIntersection.z > minZ)
 		{
@@ -509,7 +511,7 @@ bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec
 	{
 		//Check if intersection point is in rectangle, if it is, return ceiling type.
 		if (bottomIntersection.x < maxX && bottomIntersection.x > minX
-			&& glm::floor(bottomIntersection.y) == minY
+			&& (glm::ceil(bottomIntersection.y) == glm::ceil(minY))
 			&& bottomIntersection.z < maxZ && bottomIntersection.z > minZ)
 		{
 			intersection = bottomIntersection;
