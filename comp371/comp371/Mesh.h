@@ -37,6 +37,7 @@ private:
 
 	const GLfloat ROTATION_AMT = (glm::pi<GLfloat>() / 40.0f);
 	glm::vec3 sideMove = glm::vec3(0.5, 0, 0);
+	glm::vec3 zMove = glm::vec3(0, 0, 0.5);
 public:
 	Mesh();
 	Mesh(vector<GLfloat> vertices, vector<unsigned int> indices);

@@ -188,7 +188,7 @@ void Mesh::handleMotion(int key)
 		bool up = false;
 		if (this->getType() == Mesh_Type::CHAIR || this->getType() == Mesh_Type::TOILET)
 		{
-			tempModel = glm::translate(modelMatrix, vec3(0, 0, -0.5));
+			tempModel = glm::translate(modelMatrix, -zMove);
 		}
 		else
 		{
@@ -262,7 +262,7 @@ void Mesh::handleMotion(int key)
 		mat4 tempModel;
 		if (this->getType() == Mesh_Type::CHAIR || this->getType() == Mesh_Type::TOILET)
 		{
-			tempModel = glm::translate(modelMatrix, vec3(0, 0, 0.5));
+			tempModel = glm::translate(modelMatrix, zMove);
 		}
 		else
 		{
@@ -347,6 +347,10 @@ void Mesh::handleMotion(int key)
 		sideMove = glm::translate(mat4(), vec3(0, 0, 0))*vec4(sideMove, 1);
 		sideMove = glm::rotate(sideMove, glm::radians(5.f), vec3(0, -1, 0));
 		sideMove = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(sideMove, 1);
+
+		zMove = glm::translate(mat4(), vec3(0, 0, 0))*vec4(zMove, 1);
+		zMove = glm::rotate(zMove, glm::radians(5.f), vec3(0, -1, 0));
+		zMove = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(zMove, 1);
 	}
 	else if (key == GLFW_KEY_Z)
 	{
@@ -359,6 +363,10 @@ void Mesh::handleMotion(int key)
 		sideMove = glm::translate(mat4(), vec3(0, 0, 0))*vec4(sideMove,1);
 		sideMove = glm::rotate(sideMove, glm::radians(5.f), vec3(0, 1, 0));
 		sideMove = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(sideMove, 1);
+
+		zMove = glm::translate(mat4(), vec3(0, 0, 0))*vec4(zMove, 1);
+		zMove = glm::rotate(zMove, glm::radians(5.f), vec3(0, 1, 0));
+		zMove = glm::translate(mat4(), vec3(-0, -0, -0))*vec4(zMove, 1);
 	}
 }
 
