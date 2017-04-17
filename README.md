@@ -19,6 +19,7 @@ a reduced score for the project
 
 Armchair: https://free3d.com/3d-model/armchair-39723.html
 Toilet: https://free3d.com/3d-model/toilet-lavatory-loo-38457.html
+Lamp: https://free3d.com/3d-model/lamp-arab-art-72910.html
 
 Textures From:
 http://www.lughertexture.com/floor-hires-textures/medieval-pavement-texture-download
