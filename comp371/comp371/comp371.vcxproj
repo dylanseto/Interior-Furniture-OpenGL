@@ -76,6 +76,7 @@
     <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="IntersectionHelper.cpp" />
+    <ClCompile Include="lamp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCreator.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="EventHandler.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="IntersectionHelper.h" />
+    <ClInclude Include="lamp.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshCreator.h" />
     <ClInclude Include="mesh_type.h" />

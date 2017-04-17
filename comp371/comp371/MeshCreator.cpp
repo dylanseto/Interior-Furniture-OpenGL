@@ -428,6 +428,11 @@ bool MeshCreator::loadObjectTexture(Mesh* mesh)
 		glActiveTexture(GL_TEXTURE2);
 		mesh->setTextureUnit(2);
 		break;
+	case Mesh_Type::LAMP:
+		img = "res/ceil.jpg"; // temp
+		glActiveTexture(GL_TEXTURE3);
+		mesh->setTextureUnit(3);
+		break;
 	default:
 		img = "res/brick.jpg";
 		glActiveTexture(GL_TEXTURE2);

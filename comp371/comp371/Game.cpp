@@ -7,6 +7,7 @@
 #include "Chair.h"
 #include "Toilet.h"
 #include "MeshCreator.h"
+#include "lamp.h"
 
 using namespace std;
 
@@ -138,6 +139,9 @@ void Game::nextAddedObject()
 	case Mesh_Type::TOILET:
 		cout << "toilet." << endl;
 		break;
+	case Mesh_Type::LAMP:
+		cout << "lamp." << endl;
+		break;
 	}
 }
 
@@ -153,6 +157,10 @@ void Game::addObject(vec3 pos)
 		break;
 	case Mesh_Type::TOILET:
 		newObject = new Toilet(pos);
+		cout << "[ADDED] Added new toilet to the scene ";
+		break;
+	case Mesh_Type::LAMP:
+		newObject = new lamp(pos);
 		cout << "[ADDED] Added new toilet to the scene ";
 		break;
 	default:

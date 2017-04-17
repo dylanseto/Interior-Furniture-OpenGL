@@ -120,10 +120,14 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 					Game::getInstance()->addObject(intersection);
 				}
 			}
-			else if (roomWallType == RoomIntersectionType::I_WALL)
+			else if (roomWallType == RoomIntersectionType::I_CEILING)
 			{
 				//TODO: Picture Frame
-				cout << "wall" << endl;
+				cout << "ceiling" << endl;
+				if (Game::getInstance()->getAddedObject() == Mesh_Type::LAMP)
+				{
+					Game::getInstance()->addObject(intersection);
+				}
 			}
 			else
 			{
