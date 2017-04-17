@@ -72,7 +72,7 @@ void Mesh::draw()
 	glUseProgram(shaderProgram);
 
 	updateMatrix();
-	glUniform1i(glGetUniformLocation(shaderProgram, "obj_Texture"), 1);
+	glUniform1i(glGetUniformLocation(shaderProgram, "obj_Texture"), this->textureUnit);
 
 	glBindVertexArray(VAO);
 

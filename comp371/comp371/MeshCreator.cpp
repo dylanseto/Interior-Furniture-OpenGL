@@ -330,7 +330,7 @@ bool MeshCreator::loadObjectTexture(Mesh* mesh)
 		mesh->setTextureUnit(1);
 		break;
 	case Mesh_Type::TOILET:
-		img = "res/brick.jpg"; // temp
+		img = "res/ceil.jpg"; // temp
 		glActiveTexture(GL_TEXTURE2);
 		mesh->setTextureUnit(2);
 		break;
