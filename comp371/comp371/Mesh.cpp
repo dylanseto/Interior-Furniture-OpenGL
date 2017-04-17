@@ -194,7 +194,7 @@ void Mesh::handleMotion(int key)
 	{
 		mat4 tempModel;
 		bool up = false;
-		if (this->getType() == Mesh_Type::CHAIR || this->getType() == Mesh_Type::TOILET)
+		if (this->getType() == Mesh_Type::CHAIR || this->getType() == Mesh_Type::TOILET || this->getType() == Mesh_Type::LAMP)
 		{
 			tempModel = glm::translate(modelMatrix, -zMove);
 		}
@@ -268,7 +268,7 @@ void Mesh::handleMotion(int key)
 	{
 		bool up = false;
 		mat4 tempModel;
-		if (this->getType() == Mesh_Type::CHAIR || this->getType() == Mesh_Type::TOILET)
+		if (this->getType() == Mesh_Type::CHAIR || this->getType() == Mesh_Type::TOILET || this->getType() == Mesh_Type::LAMP)
 		{
 			tempModel = glm::translate(modelMatrix, zMove);
 		}

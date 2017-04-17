@@ -185,6 +185,7 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 			|| box[4].y >= room[4].y
 			|| box[7].y >= room[7].y)
 		{
+			cout << "up" << endl;
 			return true;
 		}
 		return false;
@@ -197,6 +198,7 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 			|| box[5].y + (box[0].y - box[1].y) <= room[5].y
 			|| box[6].y + (box[0].y - box[1].y) <= room[6].y)
 		{
+			cout << "down" << endl;
 			return true;
 		}
 		return false;
@@ -208,6 +210,7 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 			|| box[6].x + (box[0].x - box[2].x) <= room[6].x
 			|| box[7].x + (box[0].x - box[2].x) <= room[7].x)
 		{
+			cout << "left" << endl;
 			return true;
 		}
 		return false;
@@ -219,6 +222,7 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 			|| box[4].x - (box[0].x - box[2].x) >= room[4].x
 			|| box[5].x - (box[0].x - box[2].x) >= room[5].x)
 		{
+			cout << "right" << endl;
 			return true;
 		}
 		return false;
@@ -230,6 +234,7 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 			|| box[6].z >= room[2].z
 			|| box[7].z >= room[3].z)
 		{
+			cout << "back" << endl;
 			return true;
 		}
 		return false;
@@ -241,6 +246,7 @@ bool IntersectionHelper::BoxToRoomIntersection(vector<glm::vec3> box, vector<glm
 			|| box[2].z <= room[6].z
 			|| box[3].z <= room[7].z)
 		{
+			cout << "front" << endl;
 			return true;
 		}
 		return false;
