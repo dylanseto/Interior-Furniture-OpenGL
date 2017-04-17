@@ -94,7 +94,7 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 		//Add Object
 
 		vec3 intersection;
-		IntersectionHelper::getRayRoomIntersection(ray_wor, Game::getInstance()->getTerrain()->getBound(), intersection);
+		RoomIntersectionType roomWallType = IntersectionHelper::getRayRoomIntersection(ray_wor, Game::getInstance()->getTerrain()->getBound(), intersection);
 
 		bool hasObject = false;
 		for (Mesh* obj : Game::getInstance()->getObjects())
@@ -109,7 +109,23 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 
 		if (!hasObject)
 		{
-			Game::getInstance()->addObject(intersection);
+			if (roomWallType == RoomIntersectionType::I_FLOOR)
+			{
+				if (Game::getInstance()->getAddedObject() == Mesh_Type::CHAIR
+					|| Game::getInstance()->getAddedObject() == Mesh_Type::TOILET)
+				{
+					Game::getInstance()->addObject(intersection);
+				}
+			}
+			else if (roomWallType == RoomIntersectionType::I_WALL)
+			{
+				//TODO: Picture Frame
+				cout << "wall" << endl;
+			}
+			else
+			{
+				cout << roomWallType << endl;
+			}
 		}
 
 		EventHandler::GetPosition = false;

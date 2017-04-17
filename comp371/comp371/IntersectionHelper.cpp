@@ -267,7 +267,7 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 			&& ceilingIntersection.z < 1 && ceilingIntersection.z > -1)
 		{
 			intersection = ceilingIntersection;
-			RoomIntersectionType::I_CEILING;
+			return RoomIntersectionType::I_CEILING;
 		}
 	}
 
@@ -289,7 +289,7 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 			&& glm::floor(wall1Intersection.z) == 1)
 		{
 			intersection = wall1Intersection;
-			RoomIntersectionType::I_WALL;
+			return RoomIntersectionType::I_WALL;
 		}
 	}
 	// Wall 2 - back
@@ -309,7 +309,7 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 			&& glm::floor(wall2Intersection.z) == -1)
 		{
 			intersection = wall2Intersection;
-			RoomIntersectionType::I_WALL;
+			return RoomIntersectionType::I_WALL;
 		}
 	}
 	// Wall 3 - right
@@ -328,7 +328,7 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 			&& wall3Intersection.z < 1 && wall3Intersection.z > -1)
 		{
 			intersection = wall3Intersection;
-			RoomIntersectionType::I_WALL;
+			return RoomIntersectionType::I_WALL;
 		}
 	}
 	// Wall 4 - left
@@ -347,7 +347,7 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 			&& wall4Intersection.z < 1 && wall4Intersection.z > -1)
 		{
 			intersection = wall4Intersection;
-			RoomIntersectionType::I_WALL;
+			return RoomIntersectionType::I_WALL;
 		}
 	}
 	// Floor
@@ -366,7 +366,7 @@ RoomIntersectionType IntersectionHelper::getRayRoomIntersection(vec3 ray, vector
 			&& floorIntersection.z < 1 && floorIntersection.z > -1)
 		{
 			intersection = floorIntersection;
-			RoomIntersectionType::I_FLOOR;
+			return RoomIntersectionType::I_FLOOR;
 		}
 	}
 
