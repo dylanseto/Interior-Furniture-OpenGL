@@ -509,7 +509,7 @@ bool IntersectionHelper::rayBoxIntersection(vec3 ray, vector<glm::vec3> box, vec
 	return false;
 }
 
-vector<vec3> IntersectionHelper::createBoundingBox(vector<float> vertices, mat4 modelMatrix)
+vector<vec3> IntersectionHelper::createBoundingBox(vector<glm::vec3> vertices, mat4 modelMatrix)
 {
 	vector<vec3> boundingBox;
 
@@ -520,9 +520,9 @@ vector<vec3> IntersectionHelper::createBoundingBox(vector<float> vertices, mat4 
 	float zMax = -2;
 	float zMin = 2;
 
-	for (int i = 0; i != vertices.size(); i += 3)
+	for (int i = 0; i != vertices.size(); i ++)
 	{
-		vec3 point = vec3(vertices[i], vertices[i + 1], vertices[i + 2]);
+		vec3 point = vertices[i];
 		vec3 pointTransformed = modelMatrix*vec4(point, 1);
 
 		float x = pointTransformed.x;

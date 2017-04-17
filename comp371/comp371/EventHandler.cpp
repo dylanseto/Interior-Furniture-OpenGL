@@ -100,6 +100,8 @@ void EventHandler::cursor_position_callback(GLFWwindow* window, double xpos, dou
 		bool hasObject = false;
 		for (Mesh* obj : Game::getInstance()->getObjects())
 		{
+			if (obj == nullptr) continue;
+
 			vec3 inter;
 			if (IntersectionHelper::rayBoxIntersection(ray_wor, obj->getBound(), inter))
 			{

@@ -38,6 +38,7 @@ public:
 namespace MeshCreator
 {
 	bool loadOBJ(string filename, vector<GLfloat> &vertices, vector<GLuint> &indices);
+	bool loadOBJ(string path, std::vector<glm::vec3> & out_vertices, std::vector<glm::vec3> & out_normals, std::vector<glm::vec2> & out_uvs);
 
 	bool loadCube(vector<GLfloat> &vertices, vector<GLfloat> normals, vector<GLfloat> uvs);
 	bool loadObjectTexture(Mesh* mesh);

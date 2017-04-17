@@ -13,7 +13,9 @@ class Mesh
 {
 protected:
 	vector<GLuint> indices;
-	vector<GLfloat> vertices;
+	vector<glm::vec3> vertices;
+	vector<glm::vec3> normals;
+	vector<glm::vec2> uvs;
 	vector<glm::vec3> boundingBox;
 
 	glm::mat4 modelMatrix;
@@ -22,7 +24,7 @@ protected:
 	Mesh_Type type;
 	GLuint shaderProgram;
 
-	GLuint VAO, VBO, EBO;
+	GLuint VAO, modelVerticesVBO, EBO, modelNormalsVBO, modelUVsVBO;
 private:
 	bool selected;
 
@@ -43,7 +45,7 @@ public:
 	Mesh(vector<GLfloat> vertices, vector<unsigned int> indices);
 	~Mesh();
 
-	vector<GLfloat> getVertices() { return this->vertices; }
+	vector<glm::vec3> getVertices() { return this->vertices; }
 	glm::vec3 getPos(){ return pos; }
 	vector<glm::vec3> getBound(){ return boundingBox; }
 	Mesh_Type getType(){ return this->type; }

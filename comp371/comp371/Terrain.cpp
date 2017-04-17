@@ -1,6 +1,7 @@
 #include "Terrain.h"
 #include "MeshCreator.h"
 #include "Game.h"
+#include "IntersectionHelper.h"
 #include <iostream>
 
 
@@ -10,7 +11,7 @@ Terrain::Terrain()
 	//this->texture = TerrainType::TYPE_MOUNTAIN;
 
 	//UVs and normals are unused, so just send the function dummy vectors
-	if (MeshCreator::loadCube(this->vertices, vector<GLfloat>(), vector<GLfloat>()))
+	if (MeshCreator::loadOBJ("cube.obj", this->vertices, this->normals, this->uvs))
 	{
 		cout << "[LOAD] Loaded SkyBox." << endl;
 
@@ -22,7 +23,7 @@ Terrain::Terrain()
 
 		this->updateMatrix();
 
-		createBoundingBox();
+		this->boundingBox = IntersectionHelper::createBoundingBox(this->vertices, this->modelMatrix);
 	}
 }
 
@@ -54,13 +55,13 @@ void Terrain::draw()
 void Terrain::updateBuffer()
 {
 	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &modelVerticesVBO);
 	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
 	glBindVertexArray(VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, modelVerticesVBO);
 
-	glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(glm::vec3), &vertices.front(), GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);

@@ -12,9 +12,9 @@ Toilet::Toilet() : Mesh()
 {
 	this->type = Mesh_Type::TOILET;
 
-	if (MeshCreator::loadOBJ("toilet.obj", this->vertices, this->indices))
+	if (MeshCreator::loadOBJ("Toilet.obj", this->vertices, this->normals, this->uvs))
 	{
-		cout << "[LOAD] Loaded Chair." << endl;
+		cout << "[LOAD] Loaded Toilet." << endl;
 		this->updateBuffer();
 
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.4, 0.4, 0.4));
@@ -29,9 +29,9 @@ Toilet::Toilet(glm::vec3 pos) : Mesh()
 {
 	this->type = Mesh_Type::TOILET;
 
-	if (MeshCreator::loadOBJ("toilet.obj", this->vertices, this->indices))
+	if (MeshCreator::loadOBJ("Toilet.obj", this->vertices, this->normals, this->uvs))
 	{
-		cout << "[LOAD] Loaded Chair." << endl;
+		cout << "[LOAD] Loaded Toilet." << endl;
 		this->updateBuffer();
 
 		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.4, 0.4, 0.4));

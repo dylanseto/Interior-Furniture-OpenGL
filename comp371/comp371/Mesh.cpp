@@ -19,8 +19,8 @@ Mesh::Mesh()
 
 Mesh::Mesh(vector<GLfloat> vertices, vector<unsigned int> indices)
 {
-	this->vertices = vertices;
-	this->indices = indices;
+	//this->vertices = vertices;
+	//this->indices = indices;
 	updateBuffer();
 	pos = vec3(0, 0, 0);
 }
@@ -33,22 +33,29 @@ Mesh::~Mesh()
 void Mesh::updateBuffer()
 {
 	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-	// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
 	glBindVertexArray(VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size()*sizeof(GLfloat), vertices.data(), GL_STATIC_DRAW);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), indices.data(), GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glGenBuffers(1, &modelVerticesVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, modelVerticesVBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices.front(), GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
 	glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
+	glGenBuffers(1, &modelNormalsVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, modelNormalsVBO);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals.front(), GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+	glEnableVertexAttribArray(1);
+
+	glGenBuffers(1, &modelUVsVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, modelUVsVBO);
+	glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs.front(), GL_STATIC_DRAW);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
+	glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(0);
 }
 
 void Mesh::updateMatrix()
@@ -76,15 +83,16 @@ void Mesh::draw()
 
 	glBindVertexArray(VAO);
 
-	if (!indices.empty())
-	{
-		glDrawElements(
-			GL_TRIANGLES,      // mode
-			indices.size(),    // count
-			GL_UNSIGNED_INT,   // type
-			(void*)0           // element array buffer offset
-			);
-	}
+	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+	//if (!indices.empty())
+	//{
+	//	glDrawElements(
+	//		GL_TRIANGLES,      // mode
+	//		indices.size(),    // count
+	//		GL_UNSIGNED_INT,   // type
+	//		(void*)0           // element array buffer offset
+	//		);
+	//}
 	glBindVertexArray(0);
 }
 
@@ -386,7 +394,7 @@ void Mesh::createBoundingBox()
 
 	for (int i = 0; i != vertices.size(); i+=3)
 	{
-		vec3 point = vec3(vertices[i], vertices[i + 1], vertices[i + 2]);
+		vec3 point;//vec3(vertices[i], vertices[i + 1], vertices[i + 2]);
 		vec3 pointTransformed = modelMatrix*vec4(point, 1);
 
 		float x = pointTransformed.x;

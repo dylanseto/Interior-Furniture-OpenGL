@@ -14,7 +14,7 @@ Chair::Chair() : Mesh()
 {
 	this->type = Mesh_Type::CHAIR;
 
-	if (MeshCreator::loadOBJ("chair.obj", this->vertices, this->indices))
+	if (MeshCreator::loadOBJ("chair.obj", this->vertices, this->normals, this->uvs))
 	{
 		cout << "[LOAD] Loaded Chair." << endl;
 		this->updateBuffer();
@@ -31,7 +31,7 @@ Chair::Chair(glm::vec3 pos) : Mesh()
 {
 	this->type = Mesh_Type::CHAIR;
 
-	if (MeshCreator::loadOBJ("chair.obj", this->vertices, this->indices))
+	if (MeshCreator::loadOBJ("chair.obj", this->vertices, this->normals, this->uvs))
 	{
 		cout << "[LOAD] Loaded Chair." << endl;
 		this->updateBuffer();
