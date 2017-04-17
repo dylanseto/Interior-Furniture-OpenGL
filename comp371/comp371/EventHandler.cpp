@@ -60,7 +60,8 @@ void EventHandler::key_callback(GLFWwindow* window, int key, int scancode, int a
 	}
 	else
 	{
-		Game::getInstance()->getSelected()->handleMotion(key);
+		if (Game::getInstance()->getSelected() != nullptr)
+			Game::getInstance()->getSelected()->handleMotion(key);
 	}
 }
 
