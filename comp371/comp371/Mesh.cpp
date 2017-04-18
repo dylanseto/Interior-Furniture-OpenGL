@@ -22,7 +22,6 @@ Mesh::Mesh(vector<GLfloat> vertices, vector<unsigned int> indices)
 	//this->vertices = vertices;
 	//this->indices = indices;
 	updateBuffer();
-	pos = vec3(0, 0, 0);
 }
 
 Mesh::~Mesh()
@@ -63,6 +62,8 @@ void Mesh::updateMatrix()
 	viewMatrixLoc = glGetUniformLocation(shaderProgram, "view_matrix");
 	projectiontMatrixLoc = glGetUniformLocation(shaderProgram, "projection_matrix");
 	modelMatrixLoc = glGetUniformLocation(shaderProgram, "model_matrix");
+	lamp_positions = glGetUniformLocation(shaderProgram, "lamp_positions");
+	lamp_num = glGetUniformLocation(shaderProgram, "lamp_num");
 	selectedLoc = glGetUniformLocation(shaderProgram, "selected");
 
 	//projectionMatrix = Game::getInstance()->getProjection();
@@ -71,6 +72,11 @@ void Mesh::updateMatrix()
 	glUniformMatrix4fv(projectiontMatrixLoc, 1, GL_FALSE, glm::value_ptr(Game::getInstance()->getProjection()));
 	glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 	glUniformMatrix4fv(viewMatrixLoc, 1, GL_FALSE, glm::value_ptr(Game::getInstance()->getView()));
+	if (!Game::getInstance()->getLampPositions().empty())
+	{
+		glUniform3fv(lamp_positions, 2 * sizeof(glm::vec3), (float*)Game::getInstance()->getLampPositions().data());
+	}
+	glUniform1i(lamp_num, Game::getInstance()->getLampPositions().size());
 	glUniform1i(selectedLoc, this->selected);
 }
 
@@ -232,8 +238,6 @@ void Mesh::handleMotion(int key)
 
 			//adjust bounding box
 			this->boundingBox = tempBounding;
-
-			pos.y += 1;
 		}
 	}
 	else if (key == GLFW_KEY_A)
@@ -260,8 +264,6 @@ void Mesh::handleMotion(int key)
 
 			//adjust bounding box
 			this->boundingBox = tempBounding;
-
-			pos.y -= 1;
 		}
 	}
 	else if (key == GLFW_KEY_S)
@@ -307,8 +309,6 @@ void Mesh::handleMotion(int key)
 
 			//adjust bounding box
 			this->boundingBox = tempBounding;
-
-			pos.y -= 1;
 		}
 	}
 	else if (key == GLFW_KEY_D)
@@ -340,8 +340,6 @@ void Mesh::handleMotion(int key)
 
 			//adjust bounding box
 			this->boundingBox = tempBounding;
-
-			pos.y -= 1;
 		}
 	}
 	else if (key == GLFW_KEY_X)

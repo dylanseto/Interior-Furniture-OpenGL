@@ -12,4 +12,6 @@ public:
 	lamp();
 	lamp(glm::vec3 pos);
 	void render();
+
+	glm::vec3 getPos();
 };

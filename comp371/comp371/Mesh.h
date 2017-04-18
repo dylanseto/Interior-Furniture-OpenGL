@@ -32,8 +32,8 @@ private:
 	GLuint projectiontMatrixLoc;
 	GLuint modelMatrixLoc;
 	GLuint selectedLoc;
-
-	glm::vec3 pos;
+	GLuint lamp_positions;
+	GLuint lamp_num;
 
 	int textureUnit;
 
@@ -46,7 +46,6 @@ public:
 	~Mesh();
 
 	vector<glm::vec3> getVertices() { return this->vertices; }
-	glm::vec3 getPos(){ return pos; }
 	vector<glm::vec3> getBound(){ return boundingBox; }
 	Mesh_Type getType(){ return this->type; }
 

@@ -10,6 +10,7 @@
 #include "Mesh.h"
 #include "camera.h"
 #include "terrain.h"
+#include "lamp.h"
 
 
 class Game
@@ -19,6 +20,7 @@ private:
 	GLFWwindow* window;
 	//Mesh* mesh; // temp.
 	vector<Mesh*> objects;
+	vector<lamp*> lamps;
 	GLuint width, height;
 	camera* cam;
 	Terrain* terrain;
@@ -52,6 +54,8 @@ public:
 	void addObject(vec3 pos);
 
 	vector<Mesh*> getObjects(){ return objects; }
+	vector<vec3> getLampPositions();
+	void updateLights();
 
 	int getNumObjects(){ return this->objects.size(); }
 

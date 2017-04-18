@@ -147,6 +147,12 @@ void Game::nextAddedObject()
 
 void Game::addObject(vec3 pos)
 {
+	if (addedObject == Mesh_Type::LAMP && lamps.size() >= 2)
+	{
+		cout << "[ERROR] Trying to add more than two lamps." << endl;
+		return;
+	}
+
 	//For now, not using pos.
 	Mesh* newObject;
 	switch (addedObject)
@@ -161,7 +167,8 @@ void Game::addObject(vec3 pos)
 		break;
 	case Mesh_Type::LAMP:
 		newObject = new lamp(pos);
-		cout << "[ADDED] Added new toilet to the scene ";
+		lamps.push_back(static_cast<lamp*>(newObject));
+		cout << "[ADDED] Added new lamp to the scene ";
 		break;
 	default:
 		newObject = new Toilet(pos);
@@ -176,6 +183,27 @@ void Game::addObject(vec3 pos)
 	this->getSelected()->setSelected(false);
 	this->selectedIndex = objects.size() - 1; //Make newly added object selected.
 	this->getSelected()->setSelected(true);
+}
+
+vector<vec3> Game::getLampPositions()
+{
+	vector<vec3> pos;
+
+	for (lamp* l : lamps)
+	{
+		pos.push_back(l->getPos());
+	}
+	return pos;
+}
+
+void Game::updateLights()
+{
+	terrain->updateMatrix();
+
+	for (Mesh* obj : objects)
+	{
+		obj->updateMatrix();
+	}
 }
 
 

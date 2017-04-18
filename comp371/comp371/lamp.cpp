@@ -52,3 +52,15 @@ void lamp::render()
 	MeshCreator::loadObjectTexture(this);
 	this->draw();
 }
+
+vec3 lamp::getPos()
+{
+	float maxX = boundingBox[0].x;
+	float minX = boundingBox[2].x;
+	float maxY = boundingBox[0].y;
+	float minY = boundingBox[1].y;
+	float maxZ = boundingBox[0].z;
+	float minZ = boundingBox[5].z;
+
+	return vec3((maxX-maxY)/2.0f, (maxY-minY)/2.0f, (maxZ-minZ)/2.0f);
+}
