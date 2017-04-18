@@ -419,17 +419,17 @@ bool MeshCreator::loadObjectTexture(Mesh* mesh)
 	switch (mesh->getType())
 	{
 	case Mesh_Type::CHAIR:
-		img = "res/brick.jpg"; //temp
+		img = "res/brick.jpg";
 		glActiveTexture(GL_TEXTURE1);
 		mesh->setTextureUnit(1);
 		break;
 	case Mesh_Type::TOILET:
-		img = "res/ceil.jpg"; // temp
+		img = "res/plaster.jpg";
 		glActiveTexture(GL_TEXTURE2);
 		mesh->setTextureUnit(2);
 		break;
 	case Mesh_Type::LAMP:
-		img = "res/ceil.jpg"; // temp
+		img = "res/gold.jpg";
 		glActiveTexture(GL_TEXTURE3);
 		mesh->setTextureUnit(3);
 		break;
